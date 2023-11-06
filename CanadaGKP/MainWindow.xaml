@@ -1,0 +1,915 @@
+﻿<Window x:Class="CanadaGKP.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CanadaGKP"
+        mc:Ignorable="d"
+           WindowStyle="None" 
+        WindowState="Maximized"
+        Background="Transparent"
+        Loaded="Window_Loaded"
+        Title="Window1" Height="768" Width="1240" FontFamily="arial">
+    <Window.Resources>
+        <SolidColorBrush x:Key="ButtonColorBrushr" Color="#FF13F3C5"/>
+    </Window.Resources>
+    <Grid>
+        <Grid Background="#FF030D37">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <Image HorizontalAlignment="Right" Name="exit" VerticalAlignment="Center" Margin="10 00 20 0" Width="40" Height="40" Source="关闭.png" />
+            <Border Grid.Row="1" BorderThickness="3" BorderBrush="#FF108AD8" x:Name="jiqi">
+                <Grid>
+                    <Grid  x:Name="device">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="3"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Border Background="#FF108AD8" Grid.Row="1"/>
+                        <Button  Width="330" Height="70" IsEnabled="False" Content="机器区域" FontSize="35" Foreground="#FF0CD9F3" Background="White" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2" Name="JQName"/>
+                        <Grid Grid.Row="2" Name="jiqiQuYu">
+                            <WrapPanel Margin="15 0">
+                                <WrapPanel Margin="20 10 0 0">
+                                    <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Bottom" Name="DO4_btn" FontSize="20" MouseDown="DO4_btn_MouseDown">
+                                        推杆上升
+                                        <LineBreak/>
+                                        Push Rod UP
+                                        </TextBlock>
+                                    </Border>
+                                    <Image Width="40" Height="40" Source="灰圆.png" Name="DO4_img" Margin="10 0"/>
+                                </WrapPanel>
+                                <WrapPanel Margin="20 10 0 0">
+                                    <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO5_btn" MouseDown="DO5_btn_MouseDown">
+                                       推杆下降
+                                        <LineBreak/>
+                                        Push Rod Down
+                                        </TextBlock>
+                                    </Border>
+                                    <Image Width="40" Height="40" Source="灰圆.png" Name="DO5_img"  Margin="10 0"/>
+                                </WrapPanel>
+                                <WrapPanel Margin="20 10 0 0">
+                                    <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO1_btn" FontSize="20" MouseDown="DO1_btn_MouseDown">
+                                      落杯1
+                                        <LineBreak/>
+                                        Drop Cup1
+                                        </TextBlock>
+                                    </Border>
+                                    <Image Width="40" Height="40" Source="灰圆.png" Name="DO1_img" Margin="10 0"/>
+                                </WrapPanel>
+                                <WrapPanel Margin="20 10 0 0">
+                                    <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO2_btn" FontSize="20" MouseDown="DO2_btn_MouseDown">
+                                      落杯2
+                                        <LineBreak/>
+                                        Drop Cup2
+                                        </TextBlock>
+                                    </Border>
+                                    <Image Width="40" Height="40" Source="灰圆.png" Name="DO2_img" Margin="10 0"/>
+                                </WrapPanel>
+
+
+                                <WrapPanel Margin="0 0 200 0">
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO8_btn" FontSize="20" MouseDown="DO8_btn_MouseDown">
+                                       落盖单孔1
+                                        <LineBreak/>
+                                        Lid Down1
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png"  Name="DO8_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO9_btn" FontSize="20" MouseDown="DO9_btn_MouseDown">
+                                       落盖单孔2
+                                        <LineBreak/>
+                                        Lid Down2
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO9_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO10_btn" FontSize="20" MouseDown="DO10_btn_MouseDown">
+                                       落盖单孔3
+                                        <LineBreak/>
+                                        Lid Down3
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO10_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO3_btn" FontSize="20" MouseDown="DO3_btn_MouseDown">
+                                       热水
+                                        <LineBreak/>
+                                        Water
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO3_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO11_btn" MouseDown="DO11_btn_MouseDown">
+                                      牛奶泵
+                                        <LineBreak/>
+                                       Milk Pump
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO11_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO15_btn" MouseDown="DO15_btn_MouseDown">
+                                      茶汤泵1
+                                        <LineBreak/>
+                                        Tea Soup Pump1
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO15_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO16_btn" MouseDown="DO16_btn_MouseDown">
+                                      茶汤泵2
+                                        <LineBreak/>
+                                         Tea Soup Pump2
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO16_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="240" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO6_btn" MouseDown="DO6_btn_MouseDown">
+                                      巧克力推杆开
+                                        <LineBreak/>
+                                      Chocolate Push Rod Start
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png"  Name="DO6_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="240" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO7_btn" MouseDown="DO7_btn_MouseDown">
+                                       巧克力推杆关
+                                        <LineBreak/>
+                                         Chocolate Push Rod End
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO7_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO12_btn" FontSize="20" MouseDown="DO12_btn_MouseDown">
+                                      果糖1
+                                        <LineBreak/>
+                                        Fructose1
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO12_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO13_btn" FontSize="20" MouseDown="DO13_btn_MouseDown">
+                                      果糖2
+                                        <LineBreak/>
+                                        Fructose2
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO13_img" Margin="10 0"/>
+                                    </WrapPanel>
+
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO19_btn" MouseDown="DO19_btn_MouseDown">
+                                      咖啡机按钮1
+                                        <LineBreak/>
+                                         Coffee Button1
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO19_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO20_btn" MouseDown="DO20_btn_MouseDown">
+                                      咖啡机按钮2
+                                        <LineBreak/>
+                                         Coffee Button2
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO20_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO21_btn" MouseDown="DO21_btn_MouseDown">
+                                      咖啡机按钮3
+                                        <LineBreak/>
+                                         Coffee Button3
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO21_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO22_btn" MouseDown="DO22_btn_MouseDown">
+                                      咖啡机按钮4
+                                        <LineBreak/>
+                                         Coffee Button4
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO22_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO23_btn" MouseDown="DO23_btn_MouseDown">
+                                      咖啡机按钮5
+                                        <LineBreak/>
+                                         Coffee Button5
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO23_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO24_btn" MouseDown="DO24_btn_MouseDown">
+                                      咖啡机按钮6
+                                        <LineBreak/>
+                                         Coffee Button6
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO24_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO25_btn" MouseDown="DO25_btn_MouseDown">
+                                      电箱上电1
+                                        <LineBreak/>
+                                         Power On1
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO25_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                    <WrapPanel Margin="20 10 0 0">
+                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO26_btn" MouseDown="DO26_btn_MouseDown">
+                                      电箱上电2
+                                        <LineBreak/>
+                                         Power On2
+                                            </TextBlock>
+                                        </Border>
+                                        <Image Width="40" Height="40" Source="灰圆.png" Name="DO26_img" Margin="10 0"/>
+                                    </WrapPanel>
+                                </WrapPanel>
+                            </WrapPanel>
+
+                        </Grid>
+                        <Grid Grid.Row="2" Name="jiqiquyuSel" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1.*"/>
+                                <RowDefinition Height="2"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="0.6*"/>
+                                <RowDefinition Height="0.6*"/>
+                            </Grid.RowDefinitions>
+                            <WrapPanel  Margin="15 0">
+                                <WrapPanel Margin="20 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="AQGS">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                安全光栅
+                                        <LineBreak/>
+                                        Safety Light Grid
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CCSDW">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                               出餐上到位
+                                        <LineBreak/>
+                                        Out Cup Upper
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CCXDW">
+                                        <TextBlock  Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                             出餐下到位
+                                        <LineBreak/>
+                                        Out Cup Lower
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="200" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK1">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                            单孔落杯器反馈1
+                                        <LineBreak/>
+                                       Drop Cup Feedback1
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="200" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK2">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                               单孔落杯器反馈2
+                                        <LineBreak/>
+                                        Drop Cup Feedback2
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="200" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK3">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 单孔落杯器反馈3
+                                        <LineBreak/>
+                                       Drop Cup Feedback3
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="20 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CCJC">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 出餐检测
+                                        <LineBreak/>
+                                        Out Cup True
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="JBCGJC">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 接杯成功检测
+                                        <LineBreak/>
+                                        Join Cup Succeed
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                            </WrapPanel>
+                            <Border Background="#FF108AD8" Grid.Row="1"/>
+                            <WrapPanel Margin="15 0" Grid.Row="2">
+                                <WrapPanel Margin="20 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DCJC1">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 豆仓检测1
+                                        <LineBreak/>
+                                        Bean Monitor1
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DCJC2">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                豆仓检测2
+                                        <LineBreak/>
+                                        Bean Monitor2
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DCJC3">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                豆仓检测3
+                                        <LineBreak/>
+                                        Bean Monitor3
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNDYWJC">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 牛奶低液位检测
+                                        <LineBreak/>
+                                      Milk Lower Monitor
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNGYWJC">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 牛奶高液位检测
+                                        <LineBreak/>
+                                      Milk High Monitor
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNJC">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 牛奶检测
+                                        <LineBreak/>
+                                      Milk Monitor
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="20 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="YMNJC">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 燕麦奶检测
+                                        <LineBreak/>
+                                     Oat Milk Monitor
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="SJC">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 水检测
+                                        <LineBreak/>
+                                      Water Monitor
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                            </WrapPanel>
+                            <WrapPanel Margin="15 0" Grid.Row="3">
+                                <WrapPanel Margin="20 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GJC1">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                盖检测1
+                                        <LineBreak/>
+                                        Lid Monitor1
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GJC2">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 盖检测2
+                                        <LineBreak/>
+                                        Lid Monitor2
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GJC3">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 盖检测3
+                                        <LineBreak/>
+                                      Lid Monitor3
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="BJC1">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 杯检测1
+                                        <LineBreak/>
+                                      Cup Monitor1
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="BJC2">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 杯检测2
+                                        <LineBreak/>
+                                      Cup Monitor2
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+
+                            </WrapPanel>
+                            <WrapPanel Margin="15 0" Grid.Row="4">
+                                <WrapPanel Margin="20 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="QKLJC">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 巧克力检测
+                                        <LineBreak/>
+                                      Chocolate Monitor
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GTJC1">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 果糖检测1
+                                        <LineBreak/>
+                                      Fructose Monitor1
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GTJC2">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 果糖检测2
+                                        <LineBreak/>
+                                      Fructose Monitor2
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CTJC1">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 茶汤检测1
+                                        <LineBreak/>
+                                      Tea Soup Monitor1
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CTJC2">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                                 茶汤检测2
+                                        <LineBreak/>
+                                      Tea Soup Monitor2
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                            </WrapPanel>
+                        </Grid>
+                        <Grid Grid.Row="2"  Name="JAKAQuYu"  Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="1"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80"/>
+                                    <RowDefinition Height="1"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Image HorizontalAlignment="Left" Name="Reload_L" VerticalAlignment="Center" Margin="10 30 20 0" Width="40" Height="40" Source="\刷新.png" MouseDown="Reload_L_MouseDown"/>
+                                <Button  Width="180" Height="60" IsEnabled="False" Content="JAKA区域左" FontSize="30" Foreground="#FF0CD9F3" Background="White" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2"/>
+                                <Border Background="#FF108AD8" Grid.Row="1"/>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width=".6*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Margin="10 0">
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已开机
+                                            <LineBreak/>
+                                            Started UP
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_kj_L"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已上电
+                                            <LineBreak/>
+                                            Powered on
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_sd_L"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已使能
+                                            <LineBreak/>
+                                            Enableed
+
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_sn"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center"  Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已运行
+                                            <LineBreak/>
+                                            Started
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_yx"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已报警
+                                            <LineBreak/>
+                                           Error
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_bj"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已暂停
+                                            <LineBreak/>
+                                            Pauseed
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_zt"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" Name="DO">
+                                            已停止
+                                            <LineBreak/>
+                                            Stopped
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_tz"/>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Margin="10 0">
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" x:Name="LTypeKJ" Block.TextAlignment="Center" BorderThickness="1">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO11">
+                                            电箱上电
+                                            <LineBreak/>
+                                            Start UP
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" Block.TextAlignment="Center" BorderThickness="1" Margin="20 0 0 0" Name="LTypeBJ">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" FontSize="20" Name="DO12">
+                                            JAKA报警
+                                            <LineBreak/>
+                                            Error
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1"  Name="LOpenBTDY">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" Block.TextAlignment="Center" FontSize="20" Name="DO13">
+                                            本体上电
+                                            <LineBreak/>
+                                            Power on
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Margin="20 0 0 0" Name="LCloseBTDY">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO14">
+                                            本体下电
+                                            <LineBreak/>
+                                            Power off
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Name="LOpenSSN">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO15" >
+                                            上使能
+                                            <LineBreak/>
+                                           Enable
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseSSN">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO16">
+                                            下使能
+                                            <LineBreak/>
+                                            Disable
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Name="LOpenYXCX">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO17">
+                                            运行程序
+                                            <LineBreak/>
+                                            Start Program
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseTZCX">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO18">
+                                            停止程序
+                                            <LineBreak/>
+                                            Stop Program
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Name="LContinueZTCX">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO19">
+                                            暂停程序
+                                            <LineBreak/>
+                                            Pause Program
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseJXCX">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO20">
+                                            继续程序
+                                            <LineBreak/>
+                                            Pesume Program
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </Grid>
+
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80"/>
+                                    <RowDefinition Height="1"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 30 20 0" Width="40" Height="40" Source="\刷新.png"/>
+                                <Button  Width="180" Height="60" IsEnabled="False" Content="JAKA区域右" FontSize="30" Foreground="#FF0CD9F3" Background="White" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2"/>
+                                <Border Background="#FF108AD8" Grid.Row="1"/>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width=".6*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Margin="10 0">
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已开机
+                                            <LineBreak/>
+                                            Started UP
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已上电
+                                            <LineBreak/>
+                                            Powered on
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已使能
+                                            <LineBreak/>
+                                            Enableed
+
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center"  Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已运行
+                                            <LineBreak/>
+                                            Started
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已报警
+                                            <LineBreak/>
+                                           Error
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已暂停
+                                            <LineBreak/>
+                                            Pauseed
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
+                                            已停止
+                                            <LineBreak/>
+                                            Stopped
+                                                </TextBlock>
+                                            </Border>
+                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Margin="10 0">
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" Block.TextAlignment="Center" BorderThickness="1">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                            电箱上电
+                                            <LineBreak/>
+                                            Start UP
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" Block.TextAlignment="Center" BorderThickness="1" Margin="20 0 0 0">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" FontSize="20">
+                                            JAKA报警
+                                            <LineBreak/>
+                                            Error
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" Block.TextAlignment="Center" FontSize="20">
+                                            本体上电
+                                            <LineBreak/>
+                                            Power on
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Margin="20 0 0 0">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                            本体下电
+                                            <LineBreak/>
+                                            Power off
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" >
+                                            上使能
+                                            <LineBreak/>
+                                           Enable
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                            下使能
+                                            <LineBreak/>
+                                            Disable
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                            运行程序
+                                            <LineBreak/>
+                                            Start Program
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                            停止程序
+                                            <LineBreak/>
+                                            Stop Program
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0 10 0 0">
+                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                            暂停程序
+                                            <LineBreak/>
+                                            Pause Program
+                                                </TextBlock>
+                                            </Border>
+                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                            继续程序
+                                            <LineBreak/>
+                                            Pesume Program
+                                                </TextBlock>
+                                            </Border>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                            <Border Background="#FF108AD8" Grid.Column="1"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <WrapPanel Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10 0">
+                <Border Width="280" BorderBrush="White" Background="#FF0CD9F3" Height="70" Block.TextAlignment="Center" BorderThickness="3" Name="show" Margin="20 0" MouseDown="show_MouseDown">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="White" FontSize="25">
+                                            JAKA操控与库存显示
+                                            <LineBreak/>
+                                           JAKA Control And Stock
+                    </TextBlock>
+                </Border>
+                <Border Width="230" BorderBrush="White" Background="#FF0CD9F3" Height="70" BorderThickness="3" Block.TextAlignment="Center" Name="control1"  MouseDown="control1_MouseDown">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="White" FontSize="25">
+                                           机器操控
+                                            <LineBreak/>
+                                          Machine control
+                    </TextBlock>
+                </Border>
+                <Border Width="230" BorderBrush="White" Background="#FF0CD9F3" Height="70" BorderThickness="3" Block.TextAlignment="Center" Name="control2" Margin="20 0" MouseDown="control2_MouseDown">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="White" FontSize="25">
+                                           机器状态
+                                            <LineBreak/>
+                                          Type control
+                    </TextBlock>
+                </Border>
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</Window>
