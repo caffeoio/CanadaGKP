@@ -20,7 +20,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
-            <Image HorizontalAlignment="Right" Name="exit" VerticalAlignment="Center" Margin="10 00 20 0" Width="40" Height="40" Source="关闭.png" />
+            <Image HorizontalAlignment="Right" Name="exit" VerticalAlignment="Center" Margin="10 00 20 0" Width="40" Height="40" Source="关闭.png" MouseDown="exit_MouseDown"/>
             <Border Grid.Row="1" BorderThickness="3" BorderBrush="#FF108AD8" x:Name="jiqi">
                 <Grid>
                     <Grid  x:Name="device">
@@ -31,7 +31,7 @@
                         </Grid.RowDefinitions>
                         <Border Background="#FF108AD8" Grid.Row="1"/>
                         <Button  Width="330" Height="70" IsEnabled="False" Content="机器区域" FontSize="35" Foreground="#FF0CD9F3" Background="White" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2" Name="JQName"/>
-                        <Grid Grid.Row="2" Name="jiqiQuYu">
+                        <Grid Grid.Row="2" Name="jiqiQuYu" Visibility="Collapsed">
                             <WrapPanel Margin="15 0">
                                 <WrapPanel Margin="20 10 0 0">
                                     <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
@@ -532,7 +532,7 @@
                                 </WrapPanel>
                             </WrapPanel>
                         </Grid>
-                        <Grid Grid.Row="2"  Name="JAKAQuYu"  Visibility="Collapsed">
+                        <Grid Grid.Row="2"  Name="JAKAQuYu">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="1"/>
@@ -582,7 +582,7 @@
 
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_sn"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_sn_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center"  Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -592,7 +592,7 @@
                                             Started
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_yx"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_yx_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -602,7 +602,7 @@
                                            Error
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_bj"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_bj_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -612,7 +612,7 @@
                                             Pauseed
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_zt"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_zt_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -622,20 +622,20 @@
                                             Stopped
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_tz"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_tz_L"/>
                                         </WrapPanel>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Margin="10 0">
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" x:Name="LTypeKJ" Block.TextAlignment="Center" BorderThickness="1">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO11">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_SD">
                                             电箱上电
                                             <LineBreak/>
                                             Start UP
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" Block.TextAlignment="Center" BorderThickness="1" Margin="20 0 0 0" Name="LTypeBJ">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" FontSize="20" Name="DO12">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" FontSize="20" Name="L_BJ">
                                             JAKA报警
                                             <LineBreak/>
                                             Error
@@ -644,14 +644,14 @@
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1"  Name="LOpenBTDY">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" Block.TextAlignment="Center" FontSize="20" Name="DO13">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" Block.TextAlignment="Center" FontSize="20" Name="L_BTSD">
                                             本体上电
                                             <LineBreak/>
                                             Power on
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Margin="20 0 0 0" Name="LCloseBTDY">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO14">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_BTXD">
                                             本体下电
                                             <LineBreak/>
                                             Power off
@@ -660,14 +660,14 @@
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Name="LOpenSSN">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO15" >
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_SSN" >
                                             上使能
                                             <LineBreak/>
                                            Enable
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseSSN">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO16">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_XSN">
                                             下使能
                                             <LineBreak/>
                                             Disable
@@ -676,14 +676,14 @@
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Name="LOpenYXCX">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO17">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_YXCX">
                                             运行程序
                                             <LineBreak/>
                                             Start Program
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseTZCX">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO18">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_TZCX">
                                             停止程序
                                             <LineBreak/>
                                             Stop Program
@@ -692,14 +692,14 @@
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Name="LContinueZTCX">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO19">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_ZTCX">
                                             暂停程序
                                             <LineBreak/>
                                             Pause Program
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseJXCX">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="DO20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_JXCX">
                                             继续程序
                                             <LineBreak/>
                                             Pesume Program
@@ -733,7 +733,7 @@
                                             Started UP
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_kj_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -743,7 +743,7 @@
                                             Powered on
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_sd_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -754,7 +754,7 @@
 
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_ssn_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center"  Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -764,7 +764,7 @@
                                             Started
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_yx_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -774,7 +774,7 @@
                                            Error
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_bj_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -784,7 +784,7 @@
                                             Pauseed
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_zt_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
@@ -794,20 +794,20 @@
                                             Stopped
                                                 </TextBlock>
                                             </Border>
-                                            <Image Width="40" Height="40" Source="灰圆.png"/>
+                                            <Image Width="40" Height="40" Source="灰圆.png" Name="robot_tz_R"/>
                                         </WrapPanel>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Margin="10 0">
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" Block.TextAlignment="Center" BorderThickness="1">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_SD">
                                             电箱上电
                                             <LineBreak/>
                                             Start UP
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" Block.TextAlignment="Center" BorderThickness="1" Margin="20 0 0 0">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" FontSize="20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" FontSize="20" Name="R_BJ">
                                             JAKA报警
                                             <LineBreak/>
                                             Error
@@ -816,14 +816,14 @@
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" Block.TextAlignment="Center" FontSize="20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" Block.TextAlignment="Center" FontSize="20" Name="R_BTSD">
                                             本体上电
                                             <LineBreak/>
                                             Power on
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Margin="20 0 0 0">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_BTXD">
                                             本体下电
                                             <LineBreak/>
                                             Power off
@@ -832,14 +832,14 @@
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" >
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_SSN">
                                             上使能
                                             <LineBreak/>
                                            Enable
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_XSN">
                                             下使能
                                             <LineBreak/>
                                             Disable
@@ -848,14 +848,14 @@
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_YXCX">
                                             运行程序
                                             <LineBreak/>
                                             Start Program
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_TXCX">
                                             停止程序
                                             <LineBreak/>
                                             Stop Program
@@ -864,14 +864,14 @@
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
                                             <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_ZTCX">
                                             暂停程序
                                             <LineBreak/>
                                             Pause Program
                                                 </TextBlock>
                                             </Border>
                                             <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_JXCX">
                                             继续程序
                                             <LineBreak/>
                                             Pesume Program

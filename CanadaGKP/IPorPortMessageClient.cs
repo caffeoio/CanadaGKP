@@ -24,7 +24,15 @@ namespace CanadaGKP
         /// <summary>
         /// 咖啡机ip
         /// </summary>
-        public string CoffeeIP { get; set; } = "192.168.0.122";
+        public string CoffeeIP { get; set; } = "192.168.0.3";
+        /// <summary>
+        /// 左臂
+        /// </summary>
+        public string CoffeeIPL { get; set; } = "192.168.0.10";
+        /// <summary>
+        /// 咖啡机ip
+        /// </summary>
+        public string CoffeeIPR { get; set; } = "192.168.0.20";
         /// <summary>
         /// 咖啡机端口号
         /// </summary>

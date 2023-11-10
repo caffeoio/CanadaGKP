@@ -26,7 +26,7 @@ namespace CanadaGKP
         /// </summary>
         public string Name { get; set; } = "";
         /// <summary>
-        /// 状态 0 无状态  1 开状态 2 已开机 3 已上电 4 已使能 5 已运行 6 已报警 7 已暂停  8 已停止
+        /// 状态  0 关状态  1 开状态 2 已开机 3 已上电 4 已使能 5 已运行 6 已报警 7 已暂停  8 已停止
         /// </summary>
         public int type { get; set; } = 0; 
     }
@@ -35,7 +35,7 @@ namespace CanadaGKP
         public MessageClientList message { get; set; } = MessageClientList.Instance;
         public DigitalMsgBol MsgBol { get; set; } = DigitalMsgBol.Instance;
         /// <summary>
-        /// 状态 0 单状态  1 全状态,2机器人状态
+        /// 状态 0 单状态  1 全状态,2机器人状态,99，连接必发
         /// </summary>
         public int code { get; set; } = 0;
     }

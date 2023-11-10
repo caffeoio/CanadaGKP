@@ -34,6 +34,7 @@ namespace CanadaGKP
         /// 创建客户端
         /// </summary>
         Socket client;
+        public bool IsMake = true;
         public void CoffeeClient()
         {
             try
@@ -58,7 +59,7 @@ namespace CanadaGKP
             }
 
         }
-       
+
         /// <summary>
         /// 客户端接收到服务器发送的消息
         /// </summary>
@@ -86,9 +87,9 @@ namespace CanadaGKP
                         {
                             DISelect(ClientList.MsgBol);
                         }
-                        else
+                        else if (ClientList.code == 2)
                         {
-                           
+                            IsMake = ClientList.message.type == 0 ? true : false;
                         }
                     }
                 }
@@ -129,7 +130,7 @@ namespace CanadaGKP
                 return;
             }
         }
-        public void DOSelect(string name,int tag)
+        public void DOSelect(string name, int tag)
         {
             try
             {
@@ -160,16 +161,16 @@ namespace CanadaGKP
                         BtnShow(DO8_btn, tag, DO8_img);
                         break;
                     case "DO9":
-                        BtnShow(DO9_btn,tag, DO9_img);
+                        BtnShow(DO9_btn, tag, DO9_img);
                         break;
                     case "DO10":
-                        BtnShow(DO10_btn,tag, DO10_img);
+                        BtnShow(DO10_btn, tag, DO10_img);
                         break;
                     case "DO11":
                         BtnShow(DO11_btn, tag, DO11_img);
                         break;
                     case "DO12":
-                        BtnShow(DO12_btn,tag, DO12_img);
+                        BtnShow(DO12_btn, tag, DO12_img);
                         break;
                     case "DO13":
                         BtnShow(DO13_btn, tag, DO13_img);
@@ -275,6 +276,23 @@ namespace CanadaGKP
                     IPorPortMessageClient.Instance.CoffeeIP = porPortInfo.CoffeeIP;
                     IPorPortMessageClient.Instance.CoffeePort = porPortInfo.CoffeePort;
                 }
+                ///创建客户端
+                client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+                ///IP地址
+                IPAddress ip = IPAddress.Parse(IPorPortMessageClient.Instance.CoffeeIP);
+                ///端口号
+                IPEndPoint endPoint = new IPEndPoint(ip, 5555);
+                ///建立与服务器的远程连接
+                client.Connect(endPoint);
+                ClientList clientList = new ClientList();
+                clientList.MsgBol = DigitalMsgBol.Instance;
+                clientList.code = 99;
+                client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
+
+                ///线程问题
+                Thread thread = new Thread(ReciveMsg);
+                thread.IsBackground = true;
+                thread.Start(client);
 
             }
             catch (Exception)
@@ -300,17 +318,17 @@ namespace CanadaGKP
                 return;
             }
         }
-        public void Send(string name ,string tag)
+        public void Send(string name, string tag)
         {
             try
             {
-            ClientList clientList = new ClientList();
-            MessageClientList coffeelist = MessageClientList.Instance;
-            coffeelist.Name = name;
-            coffeelist.type = int.TryParse(tag, out int do1) ? do1 : 0; ;
-            clientList.message = coffeelist;
-            clientList.code = 0;
-            client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
+                ClientList clientList = new ClientList();
+                MessageClientList coffeelist = MessageClientList.Instance;
+                coffeelist.Name = name;
+                coffeelist.type = int.TryParse(tag, out int do1) ? do1 : 0;
+                clientList.message = coffeelist;
+                clientList.code = 0;
+                client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
             }
             catch (Exception)
             {
@@ -630,6 +648,11 @@ namespace CanadaGKP
             {
                 return;
             }
+        }
+
+        private void exit_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
