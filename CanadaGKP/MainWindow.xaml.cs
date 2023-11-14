@@ -563,7 +563,8 @@ namespace CanadaGKP
         {
             try
             {
-                Send("DO4", DO4_btn.Tag.ToString());
+                if (DO4_btn.Tag.ToString() == "0")
+                    Send("DO4", DO4_btn.Tag.ToString());
             }
             catch (Exception)
             {
@@ -574,7 +575,8 @@ namespace CanadaGKP
         {
             try
             {
-                Send("DO5", DO5_btn.Tag.ToString());
+                if (DO5_btn.Tag.ToString() == "0")
+                    Send("DO5", DO5_btn.Tag.ToString());
             }
             catch (Exception)
             {

@@ -24,7 +24,7 @@ namespace CanadaGKP
         /// <summary>
         /// 咖啡机ip
         /// </summary>
-        public string CoffeeIP { get; set; } = "192.168.0.3";
+        public string CoffeeIP { get; set; } = "192.168.0.102";
         /// <summary>
         /// 左臂
         /// </summary>
