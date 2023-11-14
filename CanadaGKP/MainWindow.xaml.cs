@@ -59,6 +59,208 @@ namespace CanadaGKP
             }
 
         }
+        public void RobotSel_L(RobotMsg robotMsg)
+        {
+            try
+            {
+                this.Dispatcher.BeginInvoke(new Action(delegate
+                {
+                    robot_kj_L.Source = robotMsg.Robot_YKJ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_sd_L.Source = robotMsg.Robot_SD_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_sn_L.Source = robotMsg.Robot_SN_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_yx_L.Source = robotMsg.Robot_YX_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_zt_L.Source = robotMsg.Robot_ZT_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_bj_L.Source = robotMsg.Robot_BJ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_tz_L.Source = robotMsg.Robot_TZ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png")); ;
+                    RobotYN_L(robotMsg);
+                }));
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+        public void RobotSel_R(RobotMsg robotMsg)
+        {
+            try
+            {
+                this.Dispatcher.BeginInvoke(new Action(delegate
+                {
+                    robot_kj_R.Source = robotMsg.Robot_YKJ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_sd_R.Source = robotMsg.Robot_SD_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_sn_R.Source = robotMsg.Robot_SN_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_yx_R.Source = robotMsg.Robot_YX_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_zt_R.Source = robotMsg.Robot_ZT_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_bj_R.Source = robotMsg.Robot_BJ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
+                    robot_tz_R.Source = robotMsg.Robot_TZ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png")); ;
+                    RobotYN_R(robotMsg);
+                }));
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+        public void RobotYN_L(RobotMsg robotMsg)
+        {
+            try
+            {
+                LTypeKJ_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LTypeBJ_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LOpenBTDY_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LCloseBTDY_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LOpenSSN_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LCloseSSN_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LOpenYXCX_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LCloseTZCX_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LContinueZTCX_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LCloseJXCX_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                L_SD.Tag = "0";
+                L_BJ.Tag = "0";
+                L_BTSD.Tag = "0";
+                L_BTXD.Tag = "0";
+                L_SSN.Tag = "0";
+                L_XSN.Tag = "0";
+                L_YXCX.Tag = "0";
+                L_ZTCX.Tag = "0";
+                L_TZCX.Tag = "0";
+                L_JXCX.Tag = "0";
+                if (!robotMsg.Robot_YKJ_L && !robotMsg.Robot_BJ_L && !robotMsg.Robot_YX_L && !robotMsg.Robot_SN_L && !robotMsg.Robot_ZT_L && !robotMsg.Robot_SD_L && !robotMsg.Robot_TZ_L)
+                {
+                    LTypeKJ_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    L_SD.Tag = "1";
+                }
+                else if (robotMsg.Robot_YKJ_L)
+                {
+                    LOpenBTDY_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    L_BTSD.Tag = "1";
+                }
+                else if (robotMsg.Robot_SD_L)
+                {
+                    LCloseBTDY_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LOpenSSN_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    L_BTXD.Tag = "1";
+                    L_SSN.Tag = "1";
+                }
+                else if (robotMsg.Robot_SN_L)
+                {
+                    LOpenYXCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseSSN_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    L_XSN.Tag = "1";
+                    L_YXCX.Tag = "1";
+                }
+                else if (robotMsg.Robot_YX_L)
+                {
+                    LCloseTZCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LContinueZTCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    L_ZTCX.Tag = "1";
+                    L_TZCX.Tag = "1";
+                }
+                else if (robotMsg.Robot_TZ_L)
+                {
+                    LOpenYXCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseSSN_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    L_XSN.Tag = "1";
+                    L_YXCX.Tag = "1";
+                }
+                else if (robotMsg.Robot_ZT_L)
+                {
+                    LCloseTZCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseJXCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    L_JXCX.Tag = "1";
+                    L_TZCX.Tag = "1";
+                }
+                else if (robotMsg.Robot_BJ_L)
+                {
+                    LTypeBJ_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    L_BJ.Tag = "1";
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+        public void RobotYN_R(RobotMsg robotMsg)
+        {
+            try
+            {
+                LTypeKJ_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LTypeBJ_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LOpenBTDY_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LCloseBTDY_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LOpenSSN_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LCloseSSN_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LOpenYXCX_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LCloseTZCX_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LContinueZTCX_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LCloseJXCX_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                R_SD.Tag = "0";
+                R_BJ.Tag = "0";
+                R_BTSD.Tag = "0";
+                R_BTXD.Tag = "0";
+                R_SSN.Tag = "0";
+                R_XSN.Tag = "0";
+                R_YXCX.Tag = "0";
+                R_ZTCX.Tag = "0";
+                R_TZCX.Tag = "0";
+                R_JXCX.Tag = "0";
+                if (!robotMsg.Robot_YKJ_R && !robotMsg.Robot_BJ_R && !robotMsg.Robot_YX_R && !robotMsg.Robot_SN_R && !robotMsg.Robot_ZT_R && !robotMsg.Robot_SD_R && !robotMsg.Robot_TZ_R)
+                {
+                    LTypeKJ_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    R_SD.Tag = "1";
+                }
+                else if (robotMsg.Robot_YKJ_R)
+                {
+                    LOpenBTDY_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    R_BTSD.Tag = "1";
+                }
+                else if (robotMsg.Robot_SD_R)
+                {
+                    LCloseBTDY_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LOpenSSN_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    R_BTXD.Tag = "1";
+                    R_SSN.Tag = "1";
+                }
+                else if (robotMsg.Robot_SN_R)
+                {
+                    LOpenYXCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseSSN_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    R_XSN.Tag = "1";
+                    R_YXCX.Tag = "1";
+                }
+                else if (robotMsg.Robot_YX_R)
+                {
+                    LCloseTZCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LContinueZTCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    R_ZTCX.Tag = "1";
+                    R_TZCX.Tag = "1";
+                }
+                else if (robotMsg.Robot_TZ_R)
+                {
+                    LOpenYXCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseSSN_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    R_XSN.Tag = "1";
+                    R_YXCX.Tag = "1";
+                }
+                else if (robotMsg.Robot_ZT_R)
+                {
+                    LCloseTZCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseJXCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    R_JXCX.Tag = "1";
+                    R_TZCX.Tag = "1";
+                }
+                else if (robotMsg.Robot_BJ_R)
+                {
+                    LTypeBJ_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    R_BJ.Tag = "1";
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
 
         /// <summary>
         /// 客户端接收到服务器发送的消息
@@ -89,7 +291,18 @@ namespace CanadaGKP
                         }
                         else if (ClientList.code == 2)
                         {
-                            IsMake = ClientList.message.type == 0 ? true : false;
+                            if (ClientList.message.type == 10)
+                            {
+                                if (ClientList.message.Name == "Reload_L")
+                                {
+                                    RobotSel_L(ClientList.RobotBol);
+                                }
+                                else if (ClientList.message.Name == "Reload_R")
+                                {
+                                    RobotSel_R(ClientList.RobotBol);
+                                }
+                            }
+                            IsMake = ClientList.IsMake;
                         }
                     }
                 }
@@ -308,9 +521,9 @@ namespace CanadaGKP
                 ClientList clientList = new ClientList();
                 MessageClientList coffeelist = MessageClientList.Instance;
                 coffeelist.Name = "Reload_L";
-                coffeelist.type = 5;
+                coffeelist.type = 10;
                 clientList.message = coffeelist;
-                clientList.code = 0;
+                clientList.code = 2;
                 client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
             }
             catch (Exception)
@@ -652,7 +865,363 @@ namespace CanadaGKP
 
         private void exit_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            try
+            {
+                if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
+                {
+                    MessageBoxResult result = MessageBox.Show("Exit orders will not be made,Do you really want to quit?", "Exit", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        this.Dispatcher.BeginInvoke(new Action(delegate
+                        {
+                            System.Windows.Application.Current.Shutdown();
+                        }));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
 
+        private void Reload_R_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                ClientList clientList = new ClientList();
+                MessageClientList coffeelist = MessageClientList.Instance;
+                coffeelist.Name = "Reload_R";
+                coffeelist.type = 12;
+                clientList.message = coffeelist;
+                clientList.code = 2;
+                client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+        /// <summary>
+        ///   状态  0 关状态  1 开状态 2 已开机 3 上电 4 下电 5 已使能 6 下使能 7 已运行 8 继续运行 9 已报警 10 已暂停  11已停止 ,12 机械臂状态查询
+        /// </summary>
+        /// <param name="robotName"></param>
+        /// <param name="type"> </param>
+        public void Robot_CZ(string robotName, int type)
+        {
+            try
+            {
+                    ClientList clientList = new ClientList();
+                    MessageClientList coffeelist = MessageClientList.Instance;
+                    coffeelist.Name =robotName;
+                    coffeelist.type = type;
+                    clientList.message = coffeelist;
+                    clientList.code = 3;
+                    client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+        private void L_SD_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_SD.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 2);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void L_BJ_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_BJ.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 9);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void L_BTSD_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_BTSD.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 3);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void L_BTXD_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_BTXD.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 4);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void L_SSN_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_SSN.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 5);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void L_XSN_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_XSN.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 6);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void L_YXCX_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_YXCX.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 7);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void L_TZCX_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_TZCX.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 11);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void L_ZTCX_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_ZTCX.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 10);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void L_JXCX_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && L_JXCX.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_L", 8);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_SD_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_SD.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 2);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_BJ_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_BJ.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 9);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_BTSD_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_BTSD.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 3);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_BTXD_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_BTXD.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 4);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_SSN_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_SSN.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 5);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_XSN_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_XSN.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 6);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_YXCX_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_YXCX.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 7);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_TZCX_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_TZCX.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 11);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_ZTCX_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_ZTCX.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 10);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void R_JXCX_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake && R_JXCX.Tag.ToString() == "1")
+                {
+                    Robot_CZ("Reload_R", 8);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
     }
 }
