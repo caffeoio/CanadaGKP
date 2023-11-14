@@ -518,13 +518,7 @@ namespace CanadaGKP
         {
             try
             {
-                ClientList clientList = new ClientList();
-                MessageClientList coffeelist = MessageClientList.Instance;
-                coffeelist.Name = "Reload_L";
-                coffeelist.type = 10;
-                clientList.message = coffeelist;
-                clientList.code = 2;
-                client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
+                Robot_CZ("Reload_L", 12);
             }
             catch (Exception)
             {
@@ -891,13 +885,7 @@ namespace CanadaGKP
         {
             try
             {
-                ClientList clientList = new ClientList();
-                MessageClientList coffeelist = MessageClientList.Instance;
-                coffeelist.Name = "Reload_R";
-                coffeelist.type = 12;
-                clientList.message = coffeelist;
-                clientList.code = 2;
-                client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
+                Robot_CZ("Reload_R", 12);
             }
             catch (Exception)
             {
