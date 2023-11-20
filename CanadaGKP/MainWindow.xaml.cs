@@ -278,7 +278,7 @@ namespace CanadaGKP
                     ///接收到的信息大小(所占字节数)
                     int length = client.Receive(arrList);
                     string msg = Encoding.UTF8.GetString(arrList, 0, length);
-                    ClientList ClientList = JsonConvert.DeserializeObject<ClientList>(msg);
+                    var ClientList = JsonConvert.DeserializeObject<ClientList>(msg);
                     if (ClientList != null)
                     {
                         if (ClientList.code == 0)
@@ -291,17 +291,17 @@ namespace CanadaGKP
                         }
                         else if (ClientList.code == 2)
                         {
-                            if (ClientList.message.type == 10)
-                            {
+                            //if (ClientList.message.type == 12)
+                            //{
                                 if (ClientList.message.Name == "Reload_L")
                                 {
-                                    RobotSel_L(ClientList.RobotBol);
+                                    RobotSel_L(ClientList.robotMsg);
                                 }
                                 else if (ClientList.message.Name == "Reload_R")
                                 {
-                                    RobotSel_R(ClientList.RobotBol);
+                                    RobotSel_R(ClientList.robotMsg);
                                 }
-                            }
+                            //}
                             IsMake = ClientList.IsMake;
                         }
                     }
@@ -906,7 +906,7 @@ namespace CanadaGKP
                     coffeelist.Name =robotName;
                     coffeelist.type = type;
                     clientList.message = coffeelist;
-                    clientList.code = 3;
+                    clientList.code = 2;
                     client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
             }
             catch (Exception)

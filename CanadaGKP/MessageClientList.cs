@@ -56,7 +56,7 @@ namespace CanadaGKP
         /// <summary>
         /// 已使能
         /// </summary>
-        public bool Robot_SN_L { get; set; } = true;
+        public bool Robot_SN_L { get; set; } = false;
         /// <summary>
         /// 已运行
         /// </summary>
@@ -84,7 +84,7 @@ namespace CanadaGKP
         /// <summary>
         /// 已使能
         /// </summary>
-        public bool Robot_SN_R { get; set; } = true;
+        public bool Robot_SN_R { get; set; } = false;
         /// <summary>
         /// 已运行
         /// </summary>
@@ -104,9 +104,9 @@ namespace CanadaGKP
     }
     public class ClientList
     {
-        public MessageClientList message { get; set; } = MessageClientList.Instance;
-        public DigitalMsgBol MsgBol { get; set; } = DigitalMsgBol.Instance;
-        public RobotMsg RobotBol { get; set; } = RobotMsg.Instance;
+        public MessageClientList message { get; set; }
+        public DigitalMsgBol MsgBol { get; set; }
+        public RobotMsg robotMsg { get; set; }
         /// <summary>
         /// 状态 0 单状态  1 全状态,2机器人状态 99 连接状态
         /// </summary>
