@@ -868,6 +868,14 @@ namespace CanadaGKP
                     MessageBoxResult result = MessageBox.Show("Exit orders will not be made,Do you really want to quit?", "Exit", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
+                        foreach (System.Diagnostics.Process thisProc in System.Diagnostics.Process.GetProcesses())
+                        {
+                            if (thisProc.ProcessName == "CanadaCoffee")
+                            {
+                                if (!thisProc.CloseMainWindow())
+                                    thisProc.Kill(); //当发送关闭窗口命令无效时强行结束进程     
+                            }
+                        }
                         this.Dispatcher.BeginInvoke(new Action(delegate
                         {
                             System.Windows.Application.Current.Shutdown();
