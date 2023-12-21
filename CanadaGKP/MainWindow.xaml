@@ -31,6 +31,7 @@
                         </Grid.RowDefinitions>
                         <Border Background="#FF108AD8" Grid.Row="1"/>
                         <Button  Width="330" Height="70" IsEnabled="False" Content="机器区域" FontSize="35" Foreground="#FF0CD9F3" Background="White" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2" Name="JQName"/>
+                        <Image HorizontalAlignment="Right" Name="exit1" VerticalAlignment="Center" Margin="10 00 20 0" Width="40" Height="40" Source="退出.png" MouseDown="control2_MouseDown" Visibility="Collapsed"/>
                         <Grid Grid.Row="2" Name="jiqiQuYu" Visibility="Collapsed">
                             <WrapPanel Margin="15 0">
                                 <WrapPanel Margin="20 10 0 0">
@@ -253,14 +254,12 @@
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO24_img" Margin="10 0"/>
                                     </WrapPanel>
-                                </WrapPanel>
-                                <WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
                                         <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
                                             <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO25_btn" MouseDown="DO25_btn_MouseDown">
-                                      电箱上电1
-                                        <LineBreak/>
-                                         Power On1
+     电箱上电1
+       <LineBreak/>
+        Power On1
                                             </TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO25_img" Margin="10 0"/>
@@ -268,18 +267,48 @@
                                     <WrapPanel Margin="20 10 0 0">
                                         <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
                                             <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO26_btn" MouseDown="DO26_btn_MouseDown">
-                                      电箱上电2
-                                        <LineBreak/>
-                                         Power On2
+     电箱上电2
+       <LineBreak/>
+        Power On2
                                             </TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO26_img" Margin="10 0"/>
                                     </WrapPanel>
                                 </WrapPanel>
+                                <WrapPanel Margin="20 10 0 0">
+                                    <Button Width="180" Height="60" Margin="0 0 10 0"  Background="#FF08F2F7">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown">
+                                         上粉碗1
+                                         <LineBreak/>
+                                        SetUp Flour Bowl 1
+                                        </TextBlock>
+                                    </Button>
+                                    <Button Width="180" Height="60" Margin="10 0"  Background="#FF08F2F7">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown_1">
+      上粉碗2
+      <LineBreak/>
+     SetUp Flour Bowl 2
+                                        </TextBlock>
+                                    </Button>
+                                    <Button Width="190" Height="60" Margin="10 0"  Background="#FF08F2F7">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown_2">
+     夹爪开
+      <LineBreak/>
+     Clamping Jaw Open
+                                        </TextBlock>
+                                    </Button>
+                                    <Button Width="190" Height="60" Margin="10 0"  Background="#FF08F2F7">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown_3">
+夹爪关
+ <LineBreak/>
+Clamping Jaw Close
+                                        </TextBlock>
+                                    </Button>
+                                </WrapPanel>
                             </WrapPanel>
 
                         </Grid>
-                        <Grid Grid.Row="2" Name="jiqiquyuSel" Visibility="Collapsed">
+                        <Grid Grid.Row="2" Name="jiqiquyuSel">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1.*"/>
                                 <RowDefinition Height="2"/>
@@ -532,7 +561,7 @@
                                 </WrapPanel>
                             </WrapPanel>
                         </Grid>
-                        <Grid Grid.Row="2"  Name="JAKAQuYu">
+                        <Grid Grid.Row="2"  Name="JAKAQuYu" Visibility="Collapsed">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="1"/>
@@ -883,16 +912,45 @@
                             </Grid>
                             <Border Background="#FF108AD8" Grid.Column="1"/>
                         </Grid>
+                        <Grid Grid.Row="2" Name="MiMa" Background="#FF030D37" Visibility="Collapsed">
+                            <StackPanel VerticalAlignment="Center">
+                                <WrapPanel HorizontalAlignment="Center">
+                                    <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+              密码
+     <LineBreak/>
+   password
+                                    </TextBlock>
+                                    <TextBox Margin="10 0" Width="200" Name="pas" VerticalContentAlignment="Center" FontSize="20"/>
+                                </WrapPanel>
+                                <WrapPanel HorizontalAlignment="Center" Margin="40">
+                                    <Button Width="100" Height="60" Margin="0 0 10 0"  Background="#FF08F2F7" Click="Button_Click">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20">
+    取消
+     <LineBreak/>
+   cancel
+                                        </TextBlock>
+                                    </Button>
+                                    <Button Width="100" Height="60" Margin="70 0 10 0"  Background="#FF08F2F7" Click="Button_Click_1">
+                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20">
+ 确定
+  <LineBreak/>
+confirm
+                                        </TextBlock>
+                                    </Button>
+                                </WrapPanel>
+                            </StackPanel>
+
+                        </Grid>
                     </Grid>
                 </Grid>
             </Border>
 
             <WrapPanel Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10 0">
-                <Border Width="280" BorderBrush="White" Background="#FF0CD9F3" Height="70" Block.TextAlignment="Center" BorderThickness="3" Name="show" Margin="20 0" MouseDown="show_MouseDown">
+                <Border Width="250" BorderBrush="White" Background="#FF0CD9F3" Height="70" Block.TextAlignment="Center" BorderThickness="3" Name="show" Margin="20 0" MouseDown="show_MouseDown">
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="White" FontSize="25">
-                                            JAKA操控与库存显示
+                                            JAKA操控
                                             <LineBreak/>
-                                           JAKA Control And Stock
+                                           JAKA Control
                     </TextBlock>
                 </Border>
                 <Border Width="230" BorderBrush="White" Background="#FF0CD9F3" Height="70" BorderThickness="3" Block.TextAlignment="Center" Name="control1"  MouseDown="control1_MouseDown">

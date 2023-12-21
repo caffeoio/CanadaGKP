@@ -111,5 +111,8 @@
     <Resource Include="灰圆.png" />
     <Resource Include="绿圆.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="退出.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

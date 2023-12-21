@@ -35,6 +35,7 @@ namespace CanadaGKP
         /// </summary>
         Socket client;
         public bool IsMake = true;
+        public int cz = 0;
         public void CoffeeClient()
         {
             try
@@ -293,14 +294,14 @@ namespace CanadaGKP
                         {
                             //if (ClientList.message.type == 12)
                             //{
-                                if (ClientList.message.Name == "Reload_L")
-                                {
-                                    RobotSel_L(ClientList.robotMsg);
-                                }
-                                else if (ClientList.message.Name == "Reload_R")
-                                {
-                                    RobotSel_R(ClientList.robotMsg);
-                                }
+                            if (ClientList.message.Name == "Reload_L")
+                            {
+                                RobotSel_L(ClientList.robotMsg);
+                            }
+                            else if (ClientList.message.Name == "Reload_R")
+                            {
+                                RobotSel_R(ClientList.robotMsg);
+                            }
                             //}
                             IsMake = ClientList.IsMake;
                         }
@@ -821,9 +822,12 @@ namespace CanadaGKP
         {
             try
             {
-                jiqiQuYu.Visibility = Visibility.Visible;
+                jiqiQuYu.Visibility = Visibility.Collapsed;
                 jiqiquyuSel.Visibility = Visibility.Collapsed;
                 JAKAQuYu.Visibility = Visibility.Collapsed;
+                MiMa.Visibility = Visibility.Visible;
+                exit1.Visibility = Visibility.Collapsed;
+                cz = 1;
             }
             catch (Exception)
             {
@@ -838,6 +842,9 @@ namespace CanadaGKP
                 jiqiQuYu.Visibility = Visibility.Collapsed;
                 jiqiquyuSel.Visibility = Visibility.Visible;
                 JAKAQuYu.Visibility = Visibility.Collapsed;
+                exit1.Visibility = Visibility.Collapsed;
+                MiMa.Visibility = Visibility.Collapsed;
+                cz = 0;
             }
             catch (Exception)
             {
@@ -851,7 +858,10 @@ namespace CanadaGKP
             {
                 jiqiQuYu.Visibility = Visibility.Collapsed;
                 jiqiquyuSel.Visibility = Visibility.Collapsed;
-                JAKAQuYu.Visibility = Visibility.Visible;
+                JAKAQuYu.Visibility = Visibility.Collapsed;
+                MiMa.Visibility = Visibility.Visible;
+                exit1.Visibility = Visibility.Collapsed;
+                cz = 2;
             }
             catch (Exception)
             {
@@ -909,13 +919,13 @@ namespace CanadaGKP
         {
             try
             {
-                    ClientList clientList = new ClientList();
-                    MessageClientList coffeelist = MessageClientList.Instance;
-                    coffeelist.Name =robotName;
-                    coffeelist.type = type;
-                    clientList.message = coffeelist;
-                    clientList.code = 2;
-                    client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
+                ClientList clientList = new ClientList();
+                MessageClientList coffeelist = MessageClientList.Instance;
+                coffeelist.Name = robotName;
+                coffeelist.type = type;
+                clientList.message = coffeelist;
+                clientList.code = 2;
+                client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
             }
             catch (Exception)
             {
@@ -1214,6 +1224,112 @@ namespace CanadaGKP
                 if (IsMake && R_JXCX.Tag.ToString() == "1")
                 {
                     Robot_CZ("Reload_R", 8);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake)
+                {
+                    Send("SFW1", DO1_btn.Tag.ToString());
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void TextBlock_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake)
+                {
+                    Send("SFW2", DO1_btn.Tag.ToString());
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void TextBlock_MouseDown_2(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake)
+                {
+                    Send("JZK", DO1_btn.Tag.ToString());
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void TextBlock_MouseDown_3(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (IsMake)
+                {
+                    Send("JZG", DO1_btn.Tag.ToString());
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            jiqiQuYu.Visibility = Visibility.Collapsed;
+            jiqiquyuSel.Visibility = Visibility.Visible;
+            JAKAQuYu.Visibility = Visibility.Collapsed;
+            MiMa.Visibility = Visibility.Collapsed;
+            exit1.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (pas.Text == "123456")
+                {
+                    if (cz == 1)
+                    {
+                        jiqiQuYu.Visibility = Visibility.Visible;
+                        jiqiquyuSel.Visibility = Visibility.Collapsed;
+                        JAKAQuYu.Visibility = Visibility.Collapsed;
+                        MiMa.Visibility = Visibility.Collapsed;
+                        exit1.Visibility = Visibility.Visible;
+                        pas.Text = "";
+                    }
+                    else if (cz == 2)
+                    {
+                        jiqiQuYu.Visibility = Visibility.Collapsed;
+                        jiqiquyuSel.Visibility = Visibility.Collapsed;
+                        JAKAQuYu.Visibility = Visibility.Visible;
+                        MiMa.Visibility = Visibility.Collapsed;
+                        exit1.Visibility = Visibility.Visible;
+                        pas.Text = "";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("The password is incorrect");
+                    pas.Text = "";
                 }
             }
             catch (Exception)
