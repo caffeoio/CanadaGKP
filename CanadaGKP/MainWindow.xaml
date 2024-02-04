@@ -195,7 +195,7 @@
                                 </WrapPanel>
                                 <WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
                                             <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO19_btn" MouseDown="DO19_btn_MouseDown">
                                       咖啡机按钮左1
                                         <LineBreak/>
@@ -205,7 +205,7 @@
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO19_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
                                             <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO20_btn" MouseDown="DO20_btn_MouseDown">
                                       咖啡机按钮左2
                                         <LineBreak/>
@@ -215,7 +215,7 @@
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO20_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
                                             <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO21_btn" MouseDown="DO21_btn_MouseDown">
                                       咖啡机按钮左3
                                         <LineBreak/>
@@ -225,7 +225,7 @@
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO21_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
                                             <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO22_btn" MouseDown="DO22_btn_MouseDown">
                                       咖啡机按钮 右1
                                         <LineBreak/>
@@ -235,7 +235,7 @@
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO22_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
                                             <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO23_btn" MouseDown="DO23_btn_MouseDown">
                                       咖啡机按钮右2
                                         <LineBreak/>
@@ -245,7 +245,7 @@
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO23_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
+                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
                                             <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO24_btn" MouseDown="DO24_btn_MouseDown">
                                       咖啡机按钮右3
                                         <LineBreak/>
@@ -276,14 +276,14 @@
                                     </WrapPanel>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 10 0 0">
-                                    <Button Width="180" Height="60" Margin="0 0 10 0"  Background="#FF08F2F7">
+                                    <Button Width="220" Height="60" Margin="0 0 10 0"  Background="#FF08F2F7">
                                         <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown">
                                          上粉碗右
                                          <LineBreak/>
                                         SetUp Flour Bowl Right
                                         </TextBlock>
                                     </Button>
-                                    <Button Width="180" Height="60" Margin="10 0"  Background="#FF08F2F7">
+                                    <Button Width="220" Height="60" Margin="10 0"  Background="#FF08F2F7">
                                         <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown_1">
       上粉碗左
       <LineBreak/>
