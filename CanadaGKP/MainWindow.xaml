@@ -347,7 +347,7 @@ Clamping Jaw Close
                                 <WrapPanel Margin="10 5 0 0">
                                     <Border Width="240" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK1">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                            单孔落杯器反馈左1
+                                            单孔落盖器反馈左1
                                         <LineBreak/>
                                        Drop Cup Feedback Left1
                                         </TextBlock>
@@ -356,7 +356,7 @@ Clamping Jaw Close
                                 <WrapPanel Margin="10 5 0 0">
                                     <Border Width="240" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK2">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                               单孔落杯器反馈左2
+                                               单孔落盖器反馈左2
                                         <LineBreak/>
                                         Drop Cup Feedback Left2
                                         </TextBlock>
@@ -365,7 +365,7 @@ Clamping Jaw Close
                                 <WrapPanel Margin="10 5 0 0">
                                     <Border Width="240" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK3">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 单孔落杯器反馈左3
+                                                 单孔落盖器反馈左3
                                         <LineBreak/>
                                        Drop Cup Feedback Left3
                                         </TextBlock>
@@ -395,7 +395,7 @@ Clamping Jaw Close
                                 <WrapPanel Margin="20 5 0 0">
                                     <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DCJC1">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 豆仓左1
+                                                 豆仓检测左1
                                         <LineBreak/>
                                         Bean Monitor Left1
                                         </TextBlock>
@@ -404,7 +404,7 @@ Clamping Jaw Close
                                 <WrapPanel Margin="10 5 0 0">
                                     <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DCJC2">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                豆仓左2
+                                                豆仓检测左2
                                         <LineBreak/>
                                         Bean Monitor Left2
                                         </TextBlock>
