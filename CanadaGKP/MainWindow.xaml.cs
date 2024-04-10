@@ -454,10 +454,11 @@ namespace CanadaGKP
                     BJC2.Background = !msgBol.QBJCSK2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
                     JBCGJC.Background = !msgBol.JBCGJC_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
                     QKLJC.Background = !msgBol.QKLJLJC_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    NNDYWJC.Background = !msgBol.NNDYW1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    NNGYWJC.Background = !msgBol.NNGYW2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    NNJC.Background = !msgBol.NNQL3_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    YMNJC.Background = !msgBol.YMNQL4_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
+                    NNZYYBJ.Background = !msgBol.BXJC1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
+                    NNZYQLJC.Background = !msgBol.BXJC2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
+                    NNJC.Background = !msgBol.QKLJLJC_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
+                    YMNJC.Background = !msgBol.BXJC3_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
+                    YMNYBJ.Background = !msgBol.BXJC4_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
                     SJC.Background = !msgBol.WATER_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
                     GTJC1.Background = !msgBol.GTJC1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
                     GTJC2.Background = !msgBol.GTJC2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));

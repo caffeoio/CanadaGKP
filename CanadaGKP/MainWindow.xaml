@@ -32,7 +32,7 @@
                         <Border Background="#FF108AD8" Grid.Row="1"/>
                         <Button  Width="330" Height="70" IsEnabled="False" Content="机器区域" FontSize="35" Foreground="#FF0CD9F3" Background="White" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2" Name="JQName"/>
                         <Image HorizontalAlignment="Right" Name="exit1" VerticalAlignment="Center" Margin="10 00 20 0" Width="40" Height="40" Source="退出.png" MouseDown="control2_MouseDown" Visibility="Collapsed"/>
-                        <Grid Grid.Row="2" Name="jiqiQuYu" Visibility="Collapsed">
+                        <Grid Grid.Row="2" Name="jiqiQuYu">
                             <WrapPanel Margin="15 0">
                                 <WrapPanel Margin="20 10 0 0">
                                     <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
@@ -308,7 +308,7 @@ Clamping Jaw Close
                             </WrapPanel>
 
                         </Grid>
-                        <Grid Grid.Row="2" Name="jiqiquyuSel">
+                        <Grid Grid.Row="2" Name="jiqiquyuSel" Visibility="Collapsed">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1.*"/>
                                 <RowDefinition Height="2"/>
@@ -362,7 +362,7 @@ Clamping Jaw Close
                                         </TextBlock>
                                     </Border>
                                 </WrapPanel>
-                                <WrapPanel Margin="10 5 0 0">
+                                <WrapPanel Margin="20 5 0 0">
                                     <Border Width="240" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK3">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
                                                  单孔落盖器反馈左3
@@ -371,7 +371,7 @@ Clamping Jaw Close
                                         </TextBlock>
                                     </Border>
                                 </WrapPanel>
-                                <WrapPanel Margin="20 5 0 0">
+                                <WrapPanel Margin="10 5 0 0">
                                     <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CCJC">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
                                                  出餐检测
@@ -420,24 +420,24 @@ Clamping Jaw Close
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNDYWJC">
+                                    <Border Width="200" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNZYYBJ">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 牛奶低液位检测
+                                                 牛奶转液预报警
                                         <LineBreak/>
-                                      Milk Lower Monitor
+                                     Milk Transfer Warning
                                         </TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNGYWJC">
+                                    <Border Width="320" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNZYQLJC">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 牛奶高液位检测
+                                                 牛奶转液缺料检测
                                         <LineBreak/>
-                                      Milk High Monitor
+                                     Milk Transfer Shortage Detection
                                         </TextBlock>
                                     </Border>
                                 </WrapPanel>
-                                <WrapPanel Margin="10 5 0 0">
+                                <WrapPanel Margin="20 5 0 0">
                                     <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNJC">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
                                                  牛奶检测
@@ -446,12 +446,21 @@ Clamping Jaw Close
                                         </TextBlock>
                                     </Border>
                                 </WrapPanel>
-                                <WrapPanel Margin="20 5 0 0">
+                                <WrapPanel Margin="10 5 0 0">
                                     <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="YMNJC">
                                         <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
                                                  燕麦奶检测
                                         <LineBreak/>
                                      Oat Milk Monitor
+                                        </TextBlock>
+                                    </Border>
+                                </WrapPanel>
+                                <WrapPanel Margin="10 5 0 0">
+                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="YMNYBJ">
+                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
+                                      燕麦奶预报警
+                                    <LineBreak/>
+                                      Oat Milk Warning
                                         </TextBlock>
                                     </Border>
                                 </WrapPanel>

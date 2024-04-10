@@ -99,29 +99,29 @@ namespace CanadaGKP
         /// </summary>
         public bool QKLQLJC_Bol { get; set; } = false;
         /// <summary>
-        /// 巧克力降落检测  true开 false关
+        /// 牛奶缺料检测（液位）  true开 false关
         /// </summary>
         public bool QKLJLJC_Bol { get; set; } = false;
         /// <summary>
-        /// 牛奶低液位检测1（液位) true开 false关
+        /// 牛奶转液预报警  true开 false关
         /// </summary>
-        public bool NNDYW1_Bol { get; set; } = false;
+        public bool BXJC1_Bol { get; set; } = false;
         /// <summary>
-        /// 牛奶高液位检测2（液位)  true开 false关
+        /// 牛奶转液缺料检测（液位）  true开 false关
         /// </summary>
-        public bool NNGYW2_Bol { get; set; } = false;
+        public bool BXJC2_Bol { get; set; } = false;
         /// <summary>
-        /// 牛奶缺料检测3（液位) true开 false关
+        /// 燕麦奶缺料检测（液位）  true开 false关
         /// </summary>
-        public bool NNQL3_Bol { get; set; } = false;
+        public bool BXJC3_Bol { get; set; } = false;
         /// <summary>
-        /// 燕麦奶缺料检测4（液位)  true开 false关
+        /// 燕麦奶预报警（液位）  true开 false关
         /// </summary>
-        public bool YMNQL4_Bol { get; set; } = false;
+        public bool BXJC4_Bol { get; set; } = false;
         /// <summary>
         /// 水位检测  true开 false关
         /// </summary>
-        public bool WATER_Bol { get; set; } = false;
+        public bool WATER_Bol { get; set; } = true;
         /// <summary>
         /// 果糖检测1  true开 false关
         /// </summary>
