@@ -146,5 +146,29 @@ namespace CanadaGKP
         /// 茶汤检测3  true开 false关
         /// </summary>
         public bool CTJC3_Bol { get; set; } = false;
+        /// <summary>
+        /// 柴茶
+        /// </summary>
+        public double ChaiTIint { get; set; } = 0;
+        /// <summary>
+        /// 抹茶
+        /// </summary>
+        public double MoCIint { get; set; } = 0;
+        /// <summary>
+        /// 白砂糖
+        /// </summary>
+        public double BaistIint { get; set; } = 0;
+        /// <summary>
+        /// 巧克力1泵
+        /// </summary>
+        public double QKLIint1 { get; set; } = 0;
+        /// <summary>
+        /// 巧克力2泵
+        /// </summary>
+        public double QKLIint2 { get; set; } = 0;
+        /// <summary>
+        /// 巧克力3泵
+        /// </summary>
+        public double QKLIint3 { get; set; } = 0;
     }
 }

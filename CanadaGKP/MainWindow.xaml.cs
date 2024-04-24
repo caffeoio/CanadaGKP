@@ -321,7 +321,7 @@ namespace CanadaGKP
         /// <param name="btn">要变颜色得按钮</param>
         /// <param name="type">1，正常 2，接通变1 3，不缺料 4，缺料</param>
         /// <param name="img">要变颜色得按钮</param>
-        public void BtnShow(TextBlock btn, int type, Image img)
+        public void BtnShow(TextBlock btn, double type, Image img)
         {
             try
             {
@@ -344,7 +344,7 @@ namespace CanadaGKP
                 return;
             }
         }
-        public void DOSelect(string name, int tag)
+        public void DOSelect(string name, double tag)
         {
             try
             {
@@ -464,6 +464,12 @@ namespace CanadaGKP
                     GTJC2.Background = !msgBol.GTJC2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
                     CTJC1.Background = !msgBol.CTJC1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
                     CTJC2.Background = !msgBol.CTJC2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
+                    ChaiC_Txt.Text = msgBol.ChaiTIint.ToString();
+                    MOC_Txt.Text = msgBol.MoCIint.ToString();
+                    BaiST_Txt.Text = msgBol.BaistIint.ToString();
+                    QiaoKL_Txt.Text = msgBol.QKLIint1.ToString();
+                    QiaoKL2_Txt.Text = msgBol.QKLIint2.ToString();
+                    QiaoKL3_Txt.Text = msgBol.QKLIint3.ToString();
                 }));
             }
             catch (Exception)
@@ -491,6 +497,20 @@ namespace CanadaGKP
                     IPorPortMessageClient.Instance.CoffeeIP = porPortInfo.CoffeeIP;
                     IPorPortMessageClient.Instance.CoffeePort = porPortInfo.CoffeePort;
                 }
+
+
+                //  Client();
+
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+        public void Client()
+        {
+            try
+            {
                 ///创建客户端
                 client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
                 ///IP地址
@@ -503,19 +523,16 @@ namespace CanadaGKP
                 clientList.MsgBol = DigitalMsgBol.Instance;
                 clientList.code = 99;
                 client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
-
                 ///线程问题
                 Thread thread = new Thread(ReciveMsg);
                 thread.IsBackground = true;
                 thread.Start(client);
-
             }
             catch (Exception)
             {
-                return;
+                Client();
             }
         }
-
         private void Reload_L_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
@@ -534,7 +551,7 @@ namespace CanadaGKP
                 ClientList clientList = new ClientList();
                 MessageClientList coffeelist = MessageClientList.Instance;
                 coffeelist.Name = name;
-                coffeelist.type = int.TryParse(tag, out int do1) ? do1 : 0;
+                coffeelist.type = double.TryParse(tag, out double do1) ? do1 : 1;
                 clientList.message = coffeelist;
                 clientList.code = 0;
                 client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
@@ -1332,6 +1349,108 @@ namespace CanadaGKP
                     MessageBox.Show("The password is incorrect");
                     pas.Text = "";
                 }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+        private void FY_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (FY.Tag.ToString() == "0")
+                {
+                    FY.Tag = 1;
+                    this.Dispatcher.BeginInvoke(new Action(delegate
+                    {
+                        FY.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"向左.png"));
+                        jiqi1.Visibility = Visibility.Collapsed;
+                        jiqi2.Visibility = Visibility.Visible;
+                    }));
+                }
+                else
+                {
+                    FY.Tag = 0;
+                    this.Dispatcher.BeginInvoke(new Action(delegate
+                    {
+                        FY.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"向右.png"));
+                        jiqi2.Visibility = Visibility.Collapsed;
+                        jiqi1.Visibility = Visibility.Visible;
+                    }));
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+        private void ChaiC_T_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Send("ChaiC", ChaiC_Txt.Text);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void MOC_T_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Send("MOC", MOC_Txt.Text);
+
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void BaiST_T_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Send("BaiST", BaiST_Txt.Text);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void QiaoKL_T_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Send("QKL1", QiaoKL_Txt.Text);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void QiaoKL2_T_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Send("QKL2", QiaoKL2_Txt.Text);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void QiaoKL3_T_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Send("QKL3", QiaoKL3_Txt.Text);
             }
             catch (Exception)
             {

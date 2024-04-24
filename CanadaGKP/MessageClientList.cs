@@ -28,7 +28,7 @@ namespace CanadaGKP
         /// <summary>
         /// 状态  0 关状态  1 开状态 2 已开机 3 上电 4 下电 5 已使能 6 下使能 7 已运行 8 继续运行 9 已报警 10 已暂停  11已停止 ,12 机械臂状态查询
         /// </summary>
-        public int type { get; set; } = 0;
+        public double type { get; set; } = 0;
     }
     public class RobotMsg
     {

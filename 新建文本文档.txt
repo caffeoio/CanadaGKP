@@ -1,0 +1,41 @@
+   private void FY_MouseDown(object sender, MouseButtonEventArgs e)
+   {
+       try
+       {
+           if (FY.Tag.ToString() == "0")
+           {
+               FY.Tag = 1;
+               this.Dispatcher.BeginInvoke(new Action(delegate
+               {
+                   FY.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"向左.png"));
+                   jiqi1.Visibility = Visibility.Collapsed;
+                   jiqi2.Visibility = Visibility.Visible;
+               }));
+           }
+           else
+           {
+               FY.Tag = 0;
+               this.Dispatcher.BeginInvoke(new Action(delegate
+               {
+                   FY.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"向右.png"));
+                   jiqi2.Visibility = Visibility.Collapsed;
+                   jiqi1.Visibility = Visibility.Visible;
+               }));
+           }
+       }
+       catch (Exception)
+       {
+           return;
+       }
+   }
+   private void ChaiC_T_MouseDown(object sender, MouseButtonEventArgs e)
+   {
+       try
+       {
+
+       }
+       catch (Exception)
+       {
+           return;
+       }
+   }

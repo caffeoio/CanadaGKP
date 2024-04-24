@@ -114,5 +114,9 @@
   <ItemGroup>
     <Resource Include="退出.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="向右.png" />
+    <Resource Include="向左.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
