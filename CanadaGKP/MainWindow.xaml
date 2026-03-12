@@ -9,19 +9,92 @@
         WindowState="Maximized"
         Background="Transparent"
         Loaded="Window_Loaded"
-        Title="Window1" Height="768" Width="1240" FontFamily="arial">
-    <Window.Resources>
-        <SolidColorBrush x:Key="ButtonColorBrushr" Color="#FF13F3C5"/>
+        Title="Canada Coffee Control" Height="768" Width="1240" FontFamily="Segoe UI">
+        <Window.Resources>
+        <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FF0B1428"/>
+        <SolidColorBrush x:Key="PanelAccentBrush" Color="#FF2E7FC6"/>
+        <SolidColorBrush x:Key="ActionBackgroundBrush" Color="#FF1C3A63"/>
+        <SolidColorBrush x:Key="ActionHoverBrush" Color="#FF285182"/>
+        <SolidColorBrush x:Key="SectionBackgroundBrush" Color="#FF17345A"/>
+        <SolidColorBrush x:Key="StatusCardBrush" Color="#FF214067"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#FFF4F9FF"/>
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#FF9CC6EA"/>
+        <SolidColorBrush x:Key="StrokeBrush" Color="#FF7FB1DD"/>
+        <SolidColorBrush x:Key="ButtonColorBrushr" Color="#FF214067"/>
+
+        <Style x:Key="InteractiveBorderStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="BorderBrush" Value="{StaticResource StrokeBrush}"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="Background" Value="{StaticResource SectionBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource StrokeBrush}"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonChrome"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonChrome" Property="Background" Value="{StaticResource ActionHoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonChrome" Property="Opacity" Value="0.88"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonChrome" Property="Opacity" Value="0.78"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF162A49"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource StrokeBrush}"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+
+        <Style TargetType="ToolTip">
+            <Setter Property="Background" Value="#FF0D1B33"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource StrokeBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
     </Window.Resources>
     <Grid>
-        <Grid Background="#FF030D37">
+        <Grid Background="{StaticResource AppBackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
                 <RowDefinition/>
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
             <Image HorizontalAlignment="Right" Name="exit" VerticalAlignment="Center" Margin="10 00 20 0" Width="40" Height="40" Source="关闭.png" MouseDown="exit_MouseDown"/>
-            <Border Grid.Row="1" BorderThickness="3" BorderBrush="#FF108AD8" x:Name="jiqi">
+            <Border Grid.Row="1" BorderThickness="3" BorderBrush="{StaticResource PanelAccentBrush}" x:Name="jiqi">
                 <Grid>
                     <Grid  x:Name="device">
                         <Grid.RowDefinitions>
@@ -29,163 +102,103 @@
                             <RowDefinition Height="3"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Border Background="#FF108AD8" Grid.Row="1"/>
-                        <Button  Width="330" Height="70" IsEnabled="False" Content="机器区域" FontSize="35" Foreground="#FF0CD9F3" Background="White" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2" Name="JQName"/>
+                        <Border Background="{StaticResource PanelAccentBrush}" Grid.Row="1"/>
+                        <Button  Width="330" Height="70" IsEnabled="False" Content="Machine Area" FontSize="35" Foreground="{StaticResource TextMutedBrush}" Background="{StaticResource StatusCardBrush}" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2" Name="JQName"/>
                         <Image HorizontalAlignment="Right" Name="exit1" VerticalAlignment="Center" Margin="10 00 20 0" Width="40" Height="40" Source="退出.png" MouseDown="control2_MouseDown" Visibility="Collapsed"/>
                         <Grid Grid.Row="2" Name="jiqiQuYu" Visibility="Collapsed">
                             <WrapPanel Margin="15 0" Name="jiqi1">
                                 <WrapPanel Margin="20 10 0 0">
-                                    <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Bottom" Name="DO4_btn" FontSize="20" MouseDown="DO4_btn_MouseDown">
-                                        推杆上升
-                                        <LineBreak/>
-                                        Push Rod UP
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Bottom" Name="DO4_btn" FontSize="20" MouseDown="DO4_btn_MouseDown">Push Rod Up</TextBlock>
                                     </Border>
                                     <Image Width="40" Height="40" Source="灰圆.png" Name="DO4_img" Margin="10 0"/>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 10 0 0">
-                                    <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO5_btn" MouseDown="DO5_btn_MouseDown">
-                                       推杆下降
-                                        <LineBreak/>
-                                        Push Rod Down
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO5_btn" MouseDown="DO5_btn_MouseDown">Push Rod Down</TextBlock>
                                     </Border>
                                     <Image Width="40" Height="40" Source="灰圆.png" Name="DO5_img"  Margin="10 0"/>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 10 0 0">
-                                    <Border Width="200" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO1_btn" FontSize="20" MouseDown="DO1_btn_MouseDown">
-                                      纸杯落杯
-                                        <LineBreak/>
-                                        Dixie Cup Drop Cup
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="200" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO1_btn" FontSize="20" MouseDown="DO1_btn_MouseDown">Paper Cup Drop</TextBlock>
                                     </Border>
                                     <Image Width="40" Height="40" Source="灰圆.png" Name="DO1_img" Margin="10 0"/>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 10 0 0">
-                                    <Border Width="200" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO2_btn" FontSize="20" MouseDown="DO2_btn_MouseDown">
-                                      塑料落杯
-                                        <LineBreak/>
-                                      Plastic Drop Cup
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="200" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO2_btn" FontSize="20" MouseDown="DO2_btn_MouseDown">Plastic Cup Drop</TextBlock>
                                     </Border>
                                     <Image Width="40" Height="40" Source="灰圆.png" Name="DO2_img" Margin="10 0"/>
                                 </WrapPanel>
                                 <WrapPanel Margin="0 0 200 0">
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO8_btn" FontSize="20" MouseDown="DO8_btn_MouseDown">
-                                       落盖左1
-                                        <LineBreak/>
-                                        Lid Down Left1
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO8_btn" FontSize="20" MouseDown="DO8_btn_MouseDown">Lid Drop Left 1</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png"  Name="DO8_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO9_btn" FontSize="20" MouseDown="DO9_btn_MouseDown">
-                                       落盖左2
-                                        <LineBreak/>
-                                        Lid Down Left2
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO9_btn" FontSize="20" MouseDown="DO9_btn_MouseDown">Lid Drop Left 2</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO9_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO10_btn" FontSize="20" MouseDown="DO10_btn_MouseDown">
-                                       落盖左3
-                                        <LineBreak/>
-                                        Lid Down Left3
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO10_btn" FontSize="20" MouseDown="DO10_btn_MouseDown">Lid Drop Left 3</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO10_img" Margin="10 0"/>
                                     </WrapPanel>
                                 </WrapPanel>
                                 <WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO3_btn" FontSize="20" MouseDown="DO3_btn_MouseDown">
-                                       热水
-                                        <LineBreak/>
-                                        Water
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO3_btn" FontSize="20" MouseDown="DO3_btn_MouseDown">Hot Water</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO3_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO11_btn" MouseDown="DO11_btn_MouseDown">
-                                      牛奶泵
-                                        <LineBreak/>
-                                       Milk Pump
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO11_btn" MouseDown="DO11_btn_MouseDown">Milk Pump</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO11_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO15_btn" MouseDown="DO15_btn_MouseDown">
-                                      茶汤泵左
-                                        <LineBreak/>
-                                        Tea Soup Pump Left
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO15_btn" MouseDown="DO15_btn_MouseDown">Tea Pump Left</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO15_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO16_btn" MouseDown="DO16_btn_MouseDown">
-                                      茶汤泵右
-                                        <LineBreak/>
-                                         Tea Soup Pum Right
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO16_btn" MouseDown="DO16_btn_MouseDown">Tea Pump Right</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO16_img" Margin="10 0"/>
                                     </WrapPanel>
                                 </WrapPanel>
                                 <WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="240" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO6_btn" MouseDown="DO6_btn_MouseDown">
-                                      巧克力推杆开
-                                        <LineBreak/>
-                                      Chocolate Push Rod Start
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="240" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO6_btn" MouseDown="DO6_btn_MouseDown">Chocolate Push Rod Open</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png"  Name="DO6_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="240" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO7_btn" MouseDown="DO7_btn_MouseDown">
-                                       巧克力推杆关
-                                        <LineBreak/>
-                                         Chocolate Push Rod End
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="240" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO7_btn" MouseDown="DO7_btn_MouseDown">Chocolate Push Rod Close</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO7_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO12_btn" FontSize="20" MouseDown="DO12_btn_MouseDown">
-                                      果糖左
-                                        <LineBreak/>
-                                        Fructose Left
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO12_btn" FontSize="20" MouseDown="DO12_btn_MouseDown">Fructose Left</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO12_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="150" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO13_btn" FontSize="20" MouseDown="DO13_btn_MouseDown">
-                                      果糖右
-                                        <LineBreak/>
-                                        Fructose Right
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" Name="DO13_btn" FontSize="20" MouseDown="DO13_btn_MouseDown">Fructose Right</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO13_img" Margin="10 0"/>
                                     </WrapPanel>
@@ -193,224 +206,116 @@
                                 </WrapPanel>
                                 <WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO19_btn" MouseDown="DO19_btn_MouseDown">
-                                      咖啡机按钮左1
-                                        <LineBreak/>
-                                         Coffee Button Left1
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO19_btn" MouseDown="DO19_btn_MouseDown">Coffee Button Left 1</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO19_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO20_btn" MouseDown="DO20_btn_MouseDown">
-                                      咖啡机按钮左2
-                                        <LineBreak/>
-                                         Coffee Button Left2
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO20_btn" MouseDown="DO20_btn_MouseDown">Coffee Button Left 2</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO20_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO21_btn" MouseDown="DO21_btn_MouseDown">
-                                      咖啡机按钮左3
-                                        <LineBreak/>
-                                         Coffee Button Left3
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO21_btn" MouseDown="DO21_btn_MouseDown">Coffee Button Left 3</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO21_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO22_btn" MouseDown="DO22_btn_MouseDown">
-                                      咖啡机按钮 右1
-                                        <LineBreak/>
-                                         Coffee Button Right1
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO22_btn" MouseDown="DO22_btn_MouseDown">Coffee Button Right 1</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO22_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO23_btn" MouseDown="DO23_btn_MouseDown">
-                                      咖啡机按钮右2
-                                        <LineBreak/>
-                                         Coffee Button Right2
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO23_btn" MouseDown="DO23_btn_MouseDown">Coffee Button Right 2</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO23_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="180" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO24_btn" MouseDown="DO24_btn_MouseDown">
-                                      咖啡机按钮右3
-                                        <LineBreak/>
-                                         Coffee Button Right3
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO24_btn" MouseDown="DO24_btn_MouseDown">Coffee Button Right 3</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO24_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO25_btn" MouseDown="DO25_btn_MouseDown">
-     电箱上电左
-       <LineBreak/>
-        Power On Left
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20"  Name="DO25_btn" MouseDown="DO25_btn_MouseDown">Cabinet Power On Left</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO25_img" Margin="10 0"/>
                                     </WrapPanel>
                                     <WrapPanel Margin="20 10 0 0">
-                                        <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="2">
-                                            <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO26_btn" MouseDown="DO26_btn_MouseDown">
-     电箱上电 右
-       <LineBreak/>
-        Power On Right
-                                            </TextBlock>
+                                        <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="2">
+                                            <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="DO26_btn" MouseDown="DO26_btn_MouseDown">Cabinet Power On Right</TextBlock>
                                         </Border>
                                         <Image Width="40" Height="40" Source="灰圆.png" Name="DO26_img" Margin="10 0"/>
                                     </WrapPanel>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 10 0 0">
-                                    <Button Width="220" Height="60" Margin="0 0 10 0"  Background="#FF08F2F7">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown">
-                                         上粉碗右
-                                         <LineBreak/>
-                                        SetUp Flour Bowl Right
-                                        </TextBlock>
+                                    <Button Width="220" Height="60" Margin="0 0 10 0"  Background="{StaticResource ActionBackgroundBrush}">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="SFW1_btn" MouseDown="TextBlock_MouseDown">Powder Bowl Up Right</TextBlock>
                                     </Button>
-                                    <Button Width="220" Height="60" Margin="10 0"  Background="#FF08F2F7">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown_1">
-      上粉碗左
-      <LineBreak/>
-     SetUp Flour Bowl Left
-                                        </TextBlock>
+                                    <Button Width="220" Height="60" Margin="10 0"  Background="{StaticResource ActionBackgroundBrush}">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="SFW2_btn" MouseDown="TextBlock_MouseDown_1">Powder Bowl Up Left</TextBlock>
                                     </Button>
-                                    <Button Width="190" Height="60" Margin="10 0"  Background="#FF08F2F7">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown_2">
-     夹爪开
-      <LineBreak/>
-     Clamping Jaw Open
-                                        </TextBlock>
+                                    <Button Width="190" Height="60" Margin="10 0"  Background="{StaticResource ActionBackgroundBrush}">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="JZK_btn" MouseDown="TextBlock_MouseDown_2">Gripper Open</TextBlock>
                                     </Button>
-                                    <Button Width="190" Height="60" Margin="10 0"  Background="#FF08F2F7">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" MouseDown="TextBlock_MouseDown_3">
-夹爪关
- <LineBreak/>
-Clamping Jaw Close
-                                        </TextBlock>
+                                    <Button Width="190" Height="60" Margin="10 0"  Background="{StaticResource ActionBackgroundBrush}">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20" Name="JZG_btn" MouseDown="TextBlock_MouseDown_3">Gripper Close</TextBlock>
                                     </Button>
                                 </WrapPanel>
                             </WrapPanel>
                             <WrapPanel Name="jiqi2" Margin="15 0" Visibility="Collapsed">
                                 <WrapPanel Margin="20 15 0 0">
-                                    <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                  柴茶
-          <LineBreak/>
-          Chai Tea
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Chai Tea</TextBlock>
                                     </Border>
                                     <TextBox Margin="10 0 0 0" Width="200" Name="ChaiC_Txt" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="30"/>
-                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="White" FontSize="30"/>
-                                    <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="ChaiC_T" MouseDown="ChaiC_T_MouseDown">
-        确认
-<LineBreak/>
-Confirm
-                                        </TextBlock>
+                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="{StaticResource TextPrimaryBrush}" FontSize="30"/><Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1"> <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="ChaiC_T" MouseDown="ChaiC_T_MouseDown"> Confirm</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="50 15 0 0">
-                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                  抹茶
-          <LineBreak/>
-          Matcha Tea
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Matcha Tea</TextBlock>
                                     </Border>
                                     <TextBox Margin="10 0 0 0" Width="200" Name="MOC_Txt"/>
-                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="White" FontSize="30"/>
-                                    <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="MOC_T" MouseDown="MOC_T_MouseDown">
-        确认
-<LineBreak/>
-Confirm
-                                        </TextBlock>
+                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="{StaticResource TextPrimaryBrush}" FontSize="30"/><Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1"> <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="MOC_T" MouseDown="MOC_T_MouseDown"> Confirm</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 15 0 0">
-                                    <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-               白砂糖
-          <LineBreak/>
-          White Sugar
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">White Sugar</TextBlock>
                                     </Border>
                                     <TextBox Margin="10 0 0 0" Width="200" Name="BaiST_Txt"/>
-                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="White" FontSize="30"/>
-                                    <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="BaiST_T" MouseDown="BaiST_T_MouseDown">
-        确认
-<LineBreak/>
-Confirm
-                                        </TextBlock>
+                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="{StaticResource TextPrimaryBrush}" FontSize="30"/><Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1"> <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="BaiST_T" MouseDown="BaiST_T_MouseDown"> Confirm</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 15 0 0">
-                                    <Border Width="230" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                  1泵巧克力糖浆
-          <LineBreak/>
-          1 pump chocolate syrup
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="230" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Pump 1 Chocolate Syrup</TextBlock>
                                     </Border>
                                     <TextBox Margin="10 0 0 0" Width="200" Name="QiaoKL_Txt"/>
-                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="White" FontSize="30"/>
-                                    <Border Width="160" Height="60" Tag="0"  Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="QiaoKL_T" MouseDown="QiaoKL_T_MouseDown">
-        确认
-<LineBreak/>
-Confirm
-                                        </TextBlock>
+                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="{StaticResource TextPrimaryBrush}" FontSize="30"/><Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1"> <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="QiaoKL_T" MouseDown="QiaoKL_T_MouseDown"> Confirm</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 15 0 0">
-                                    <Border Width="230" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                  2泵巧克力糖浆
-          <LineBreak/>
-          1 pump chocolate syrup
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="230" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Pump 2 Chocolate Syrup</TextBlock>
                                     </Border>
                                     <TextBox Margin="10 0 0 0" Width="200" Name="QiaoKL2_Txt"/>
-                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="White" FontSize="30"/>
-                                    <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="QiaoKL2_T" MouseDown="QiaoKL2_T_MouseDown">
-        确认
-<LineBreak/>
-Confirm
-                                        </TextBlock>
+                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="{StaticResource TextPrimaryBrush}" FontSize="30"/><Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1"> <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="QiaoKL2_T" MouseDown="QiaoKL2_T_MouseDown"> Confirm</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 15 0 0">
-                                    <Border Width="230" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                  3泵巧克力糖浆
-          <LineBreak/>
-          1 pump chocolate syrup
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="230" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Pump 3 Chocolate Syrup</TextBlock>
                                     </Border>
                                     <TextBox Margin="10 0 0 0" Width="200" Name="QiaoKL3_Txt"/>
-                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="White" FontSize="30"/>
-                                    <Border Width="160" Height="60" Tag="0" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="QiaoKL3_T" MouseDown="QiaoKL3_T_MouseDown">
-        确认
-<LineBreak/>
-Confirm
-                                        </TextBlock>
+                                    <TextBlock Margin="0 0 10 0" Text="s" VerticalAlignment="Bottom" Foreground="{StaticResource TextPrimaryBrush}" FontSize="30"/><Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1"> <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center" Name="QiaoKL3_T" MouseDown="QiaoKL3_T_MouseDown"> Confirm</TextBlock>
                                     </Border>
                                 </WrapPanel>
                             </WrapPanel>
@@ -426,254 +331,146 @@ Confirm
                             </Grid.RowDefinitions>
                             <WrapPanel  Margin="15 0">
                                 <WrapPanel Margin="20 5 0 0">
-                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="AQGS">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                安全光栅
-                                        <LineBreak/>
-                                        Safety Light Grid
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="AQGS">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Safety Light Curtain</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CCSDW">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                               出餐上到位
-                                        <LineBreak/>
-                                        Out Cup Upper
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="CCSDW">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Serve Upper Position</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CCXDW">
-                                        <TextBlock  Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                             出餐下到位
-                                        <LineBreak/>
-                                        Out Cup Lower
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="CCXDW">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Serve Lower Position</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="240" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                            单孔落盖器反馈左1
-                                        <LineBreak/>
-                                       Drop Cup Feedback Left1
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="240" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="DKLBQFK1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Single Lid Feedback Left 1</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="240" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK2">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                               单孔落盖器反馈左2
-                                        <LineBreak/>
-                                        Drop Cup Feedback Left2
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="240" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="DKLBQFK2">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Single Lid Feedback Left 2</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 5 0 0">
-                                    <Border Width="240" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DKLBQFK3">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 单孔落盖器反馈左3
-                                        <LineBreak/>
-                                       Drop Cup Feedback Left3
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="240" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="DKLBQFK3">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Single Lid Feedback Left 3</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CCJC">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 出餐检测
-                                        <LineBreak/>
-                                        Out Cup True
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="CCJC">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Serve Detection</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="JBCGJC">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 接杯成功检测
-                                        <LineBreak/>
-                                        Join Cup Succeed
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="JBCGJC">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Cup Pickup Success</TextBlock>
                                     </Border>
                                 </WrapPanel>
                             </WrapPanel>
-                            <Border Background="#FF108AD8" Grid.Row="1"/>
+                            <Border Background="{StaticResource PanelAccentBrush}" Grid.Row="1"/>
                             <WrapPanel Margin="15 0" Grid.Row="2">
                                 <WrapPanel Margin="20 5 0 0">
-                                    <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DCJC1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 豆仓检测左1
-                                        <LineBreak/>
-                                        Bean Monitor Left1
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="DCJC1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Bean Hopper Sensor Left 1</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DCJC2">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                豆仓检测左2
-                                        <LineBreak/>
-                                        Bean Monitor Left2
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="DCJC2">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Bean Hopper Sensor Left 2</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="DCJC3">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                豆仓检测左3
-                                        <LineBreak/>
-                                        Bean Monitor Left3
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="DCJC3">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Bean Hopper Sensor Left 3</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="200" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNZYYBJ">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 牛奶转液预报警
-                                        <LineBreak/>
-                                     Milk Transfer Warning
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="200" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="NNZYYBJ">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Milk Transfer Pre-Alarm</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="320" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNZYQLJC">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 牛奶转液缺料检测
-                                        <LineBreak/>
-                                     Milk Transfer Shortage Detection
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="320" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="NNZYQLJC">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Milk Transfer Low-Level</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="20 5 0 0">
-                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="NNJC">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 牛奶检测
-                                        <LineBreak/>
-                                      Milk Monitor
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="NNJC">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Milk Sensor</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="YMNJC">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 燕麦奶检测
-                                        <LineBreak/>
-                                     Oat Milk Monitor
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="YMNJC">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Oat Milk Sensor</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="YMNYBJ">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                      燕麦奶预报警
-                                    <LineBreak/>
-                                      Oat Milk Warning
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="YMNYBJ">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Oat Milk Pre-Alarm</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0" Visibility="Collapsed">
-                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="SJC">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 水检测
-                                        <LineBreak/>
-                                      Water Monitor
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="SJC">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Water Sensor</TextBlock>
                                     </Border>
                                 </WrapPanel>
                             </WrapPanel>
                             <WrapPanel Margin="15 0" Grid.Row="3">
                                 <WrapPanel Margin="20 5 0 0">
-                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GJC1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                盖检测左1
-                                        <LineBreak/>
-                                        Lid Monitor Left1
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="GJC1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Lid Sensor Left 1</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GJC2">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 盖检测左2
-                                        <LineBreak/>
-                                        Lid Monitor Left2
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="GJC2">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Lid Sensor Left 2</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="160" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GJC3">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 盖检测左3
-                                        <LineBreak/>
-                                      Lid Monitor Left3
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="160" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="GJC3">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Lid Sensor Left 3</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="BJC1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 纸杯杯检测
-                                        <LineBreak/>
-                                      Dixie Cup Monitor
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="BJC1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Paper Cup Sensor</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="180" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="BJC2">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 塑料杯检测
-                                        <LineBreak/>
-                                      Plastic Cup Monitor
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="180" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="BJC2">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Plastic Cup Sensor</TextBlock>
                                     </Border>
                                 </WrapPanel>
 
                             </WrapPanel>
                             <WrapPanel Margin="15 0" Grid.Row="4">
                                 <WrapPanel Margin="20 5 0 0">
-                                    <Border Width="170" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="QKLJC">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 巧克力检测
-                                        <LineBreak/>
-                                      Chocolate Monitor
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="QKLJC">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Chocolate Sensor</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="210" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GTJC1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 果糖检测左
-                                        <LineBreak/>
-                                      Fructose Monitor Left
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="210" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="GTJC1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Fructose Sensor Left</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="210" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="GTJC2">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 果糖检测右
-                                        <LineBreak/>
-                                      Fructose Monitor Right
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="210" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="GTJC2">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Fructose Sensor Right</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="220" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CTJC1">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 茶汤检测左
-                                        <LineBreak/>
-                                      Tea Soup Monitor Left
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="220" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="CTJC1">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Tea Sensor Left</TextBlock>
                                     </Border>
                                 </WrapPanel>
                                 <WrapPanel Margin="10 5 0 0">
-                                    <Border Width="220" Height="60" Tag="0" Background="White" BorderBrush="#FF08F2F7" BorderThickness="1" Name="CTJC2">
-                                        <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-                                                 茶汤检测右
-                                        <LineBreak/>
-                                      Tea Soup Monitor Right
-                                        </TextBlock>
+                                    <Border Style="{StaticResource InteractiveBorderStyle}" Width="220" Height="60" Tag="0" Background="{StaticResource StatusCardBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="CTJC2">
+                                        <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Tea Sensor Right</TextBlock>
                                     </Border>
                                 </WrapPanel>
                             </WrapPanel>
@@ -691,8 +488,8 @@ Confirm
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <Image HorizontalAlignment="Left" Name="Reload_L" VerticalAlignment="Center" Margin="10 30 20 0" Width="40" Height="40" Source="\刷新.png" MouseDown="Reload_L_MouseDown"/>
-                                <Button  Width="180" Height="60" IsEnabled="False" Content="JAKA区域左" FontSize="30" Foreground="#FF0CD9F3" Background="White" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2"/>
-                                <Border Background="#FF108AD8" Grid.Row="1"/>
+                                <Button  Width="180" Height="60" IsEnabled="False" Content="JAKA Zone Left" FontSize="30" Foreground="{StaticResource TextMutedBrush}" Background="{StaticResource StatusCardBrush}" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2"/>
+                                <Border Background="{StaticResource PanelAccentBrush}" Grid.Row="1"/>
                                 <Grid Grid.Row="2">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="0.6*"/>
@@ -700,156 +497,87 @@ Confirm
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Margin="10,0,10,0" Grid.ColumnSpan="2">
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已开机
-                                            <LineBreak/>
-                                            Started UP
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Powered Up</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_kj_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已上电
-                                            <LineBreak/>
-                                            Powered on
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Power Applied</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_sd_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已使能
-                                            <LineBreak/>
-                                            Enableed
-
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Enabled</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_sn_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center"  Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已运行
-                                            <LineBreak/>
-                                            Started
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center"  Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Running</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_yx_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已报警
-                                            <LineBreak/>
-                                           Error
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Alarm Active</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_bj_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已暂停
-                                            <LineBreak/>
-                                            Pauseed
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Paused</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_zt_L"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" Name="DO">
-                                            已停止
-                                            <LineBreak/>
-                                            Stopped
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" Name="DO">Stopped</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_tz_L"/>
                                         </WrapPanel>
                                     </StackPanel>
                                     <StackPanel Grid.Column="2" Margin="10,0,11,0">
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" x:Name="LTypeKJ_L" Block.TextAlignment="Center" BorderThickness="1">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_SD" MouseDown="L_SD_MouseDown">
-                                            电箱上电
-                                            <LineBreak/>
-                                            Start UP
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" x:Name="LTypeKJ_L" Block.TextAlignment="Center" BorderThickness="1">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="L_SD" MouseDown="L_SD_MouseDown">Cabinet Power On</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" Block.TextAlignment="Center" BorderThickness="1" Margin="20 0 0 0" Name="LTypeBJ_L">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" FontSize="20" Name="L_BJ" MouseDown="L_BJ_MouseDown">
-                                            JAKA报警
-                                            <LineBreak/>
-                                            Error
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" Block.TextAlignment="Center" BorderThickness="1" Margin="20 0 0 0" Name="LTypeBJ_L">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="L_BJ" MouseDown="L_BJ_MouseDown">JAKA Alarm</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1"  Name="LOpenBTDY_L">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" Block.TextAlignment="Center" FontSize="20" Name="L_BTSD" MouseDown="L_BTSD_MouseDown">
-                                            本体上电
-                                            <LineBreak/>
-                                            Power on
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1"  Name="LOpenBTDY_L">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" FontSize="20" Name="L_BTSD" MouseDown="L_BTSD_MouseDown">Robot Power On</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Margin="20 0 0 0" Name="LCloseBTDY_L">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_BTXD" MouseDown="L_BTXD_MouseDown">
-                                            本体下电
-                                            <LineBreak/>
-                                            Power off
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Block.TextAlignment="Center" Margin="20 0 0 0" Name="LCloseBTDY_L">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="L_BTXD" MouseDown="L_BTXD_MouseDown">Robot Power Off</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Name="LOpenSSN_L">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_SSN" MouseDown="L_SSN_MouseDown">
-                                            上使能
-                                            <LineBreak/>
-                                           Enable
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="LOpenSSN_L">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="L_SSN" MouseDown="L_SSN_MouseDown">Enable</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseSSN_L">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_XSN" MouseDown="L_XSN_MouseDown">
-                                            下使能
-                                            <LineBreak/>
-                                            Disable
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Margin="20 0 0 0" Name="LCloseSSN_L">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="L_XSN" MouseDown="L_XSN_MouseDown">Disable</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Name="LOpenYXCX_L">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_YXCX" MouseDown="L_YXCX_MouseDown">
-                                            运行程序
-                                            <LineBreak/>
-                                            Start Program
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="LOpenYXCX_L">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="L_YXCX" MouseDown="L_YXCX_MouseDown">Run Program</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseTZCX_L">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_TZCX" MouseDown="L_TZCX_MouseDown">
-                                            停止程序
-                                            <LineBreak/>
-                                            Stop Program
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Margin="20 0 0 0" Name="LCloseTZCX_L">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="L_TZCX" MouseDown="L_TZCX_MouseDown">Stop Program</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Name="LContinueZTCX_L">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_ZTCX" MouseDown="L_ZTCX_MouseDown">
-                                            暂停程序
-                                            <LineBreak/>
-                                            Pause Program
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Block.TextAlignment="Center" Name="LContinueZTCX_L">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="L_ZTCX" MouseDown="L_ZTCX_MouseDown">Pause Program</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseJXCX_L">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="L_JXCX" MouseDown="L_JXCX_MouseDown">
-                                            继续程序
-                                            <LineBreak/>
-                                            Pesume Program
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Margin="20 0 0 0" Name="LCloseJXCX_L">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="L_JXCX" MouseDown="L_JXCX_MouseDown">Resume Program</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                     </StackPanel>
@@ -863,8 +591,8 @@ Confirm
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <Image HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 30 20 0" Width="40" Height="40" Source="\刷新.png" Name="Reload_R"  MouseDown="Reload_R_MouseDown"/>
-                                <Button  Width="180" Height="60" IsEnabled="False" Content="JAKA区域右" FontSize="30" Foreground="#FF0CD9F3" Background="White" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2"/>
-                                <Border Background="#FF108AD8" Grid.Row="1"/>
+                                <Button  Width="180" Height="60" IsEnabled="False" Content="JAKA Zone Right" FontSize="30" Foreground="{StaticResource TextMutedBrush}" Background="{StaticResource StatusCardBrush}" FontWeight="Bold"  BorderBrush="#FF9C9B9B" BorderThickness="2"/>
+                                <Border Background="{StaticResource PanelAccentBrush}" Grid.Row="1"/>
                                 <Grid Grid.Row="2">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width=".6*"/>
@@ -872,187 +600,106 @@ Confirm
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Margin="10 0">
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已开机
-                                            <LineBreak/>
-                                            Started UP
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Powered Up</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_kj_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已上电
-                                            <LineBreak/>
-                                            Powered on
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Power Applied</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_sd_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已使能
-                                            <LineBreak/>
-                                            Enableed
-
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Enabled</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_sn_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center"  Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已运行
-                                            <LineBreak/>
-                                            Started
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center"  Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Running</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_yx_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已报警
-                                            <LineBreak/>
-                                           Error
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Alarm Active</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_bj_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已暂停
-                                            <LineBreak/>
-                                            Pauseed
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Paused</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_zt_R"/>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
-                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red">
-                                            已停止
-                                            <LineBreak/>
-                                            Stopped
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="150" Height="50" Block.TextAlignment="Center" Margin="0 0 10 0" Background="{StaticResource ButtonColorBrushr}">
+                                                <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}">Stopped</TextBlock>
                                             </Border>
                                             <Image Width="40" Height="40" Source="灰圆.png" Name="robot_tz_R"/>
                                         </WrapPanel>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1" Margin="10 0">
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" Block.TextAlignment="Center" x:Name="LTypeKJ_R" BorderThickness="1">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_SD" MouseDown="R_SD_MouseDown">
-                                            电箱上电
-                                            <LineBreak/>
-                                            Start UP
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" Block.TextAlignment="Center" x:Name="LTypeKJ_R" BorderThickness="1">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="R_SD" MouseDown="R_SD_MouseDown">Cabinet Power On</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" Block.TextAlignment="Center" BorderThickness="1" Margin="20 0 0 0" Name="LTypeBJ_R">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" FontSize="20" Name="R_BJ" MouseDown="R_BJ_MouseDown">
-                                            JAKA报警
-                                            <LineBreak/>
-                                            Error
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" Block.TextAlignment="Center" BorderThickness="1" Margin="20 0 0 0" Name="LTypeBJ_R">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="R_BJ" MouseDown="R_BJ_MouseDown">JAKA Alarm</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Name="LOpenBTDY_R">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Red" Block.TextAlignment="Center" FontSize="20" Name="R_BTSD" MouseDown="R_BTSD_MouseDown">
-                                            本体上电
-                                            <LineBreak/>
-                                            Power on
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="LOpenBTDY_R">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" FontSize="20" Name="R_BTSD" MouseDown="R_BTSD_MouseDown">Robot Power On</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Margin="20 0 0 0" Name="LCloseBTDY_R">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_BTXD" MouseDown="R_BTXD_MouseDown">
-                                            本体下电
-                                            <LineBreak/>
-                                            Power off
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Block.TextAlignment="Center" Margin="20 0 0 0" Name="LCloseBTDY_R">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="R_BTXD" MouseDown="R_BTXD_MouseDown">Robot Power Off</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Name="LOpenSSN_R">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_SSN" MouseDown="R_SSN_MouseDown">
-                                            上使能
-                                            <LineBreak/>
-                                           Enable
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="LOpenSSN_R">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="R_SSN" MouseDown="R_SSN_MouseDown">Enable</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseSSN_R">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_XSN" MouseDown="R_XSN_MouseDown">
-                                            下使能
-                                            <LineBreak/>
-                                            Disable
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Margin="20 0 0 0" Name="LCloseSSN_R">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="R_XSN" MouseDown="R_XSN_MouseDown">Disable</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Name="LOpenYXCX_R">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_YXCX" MouseDown="R_YXCX_MouseDown">
-                                            运行程序
-                                            <LineBreak/>
-                                            Start Program
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Name="LOpenYXCX_R">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="R_YXCX" MouseDown="R_YXCX_MouseDown">Run Program</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseTZCX_R">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_TZCX" MouseDown="R_TZCX_MouseDown">
-                                            停止程序
-                                            <LineBreak/>
-                                            Stop Program
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Margin="20 0 0 0" Name="LCloseTZCX_R">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="R_TZCX" MouseDown="R_TZCX_MouseDown">Stop Program</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                         <WrapPanel Margin="0 10 0 0">
-                                            <Border Width="170" Height="60" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Block.TextAlignment="Center" Name="LContinueZTCX_R">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_ZTCX" MouseDown="R_ZTCX_MouseDown">
-                                            暂停程序
-                                            <LineBreak/>
-                                            Pause Program
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Block.TextAlignment="Center" Name="LContinueZTCX_R">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="R_ZTCX" MouseDown="R_ZTCX_MouseDown">Pause Program</TextBlock>
                                             </Border>
-                                            <Border Width="170" Height="60" Block.TextAlignment="Center" Background="#FF08F2F7" BorderBrush="White" BorderThickness="1" Margin="20 0 0 0" Name="LCloseJXCX_R">
-                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Red" FontSize="20" Name="R_JXCX" MouseDown="R_JXCX_MouseDown">
-                                            继续程序
-                                            <LineBreak/>
-                                            Pesume Program
-                                                </TextBlock>
+                                            <Border Style="{StaticResource InteractiveBorderStyle}" Width="170" Height="60" Block.TextAlignment="Center" Background="{StaticResource ActionBackgroundBrush}" BorderBrush="{StaticResource StrokeBrush}" BorderThickness="1" Margin="20 0 0 0" Name="LCloseJXCX_R">
+                                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Name="R_JXCX" MouseDown="R_JXCX_MouseDown">Resume Program</TextBlock>
                                             </Border>
                                         </WrapPanel>
                                     </StackPanel>
                                 </Grid>
                             </Grid>
-                            <Border Background="#FF108AD8" Grid.Column="1"/>
+                            <Border Background="{StaticResource PanelAccentBrush}" Grid.Column="1"/>
                         </Grid>
-                        <Grid Grid.Row="2" Name="MiMa" Background="#FF030D37" Visibility="Collapsed">
+                        <Grid Grid.Row="2" Name="MiMa" Background="{StaticResource AppBackgroundBrush}" Visibility="Collapsed">
                             <StackPanel VerticalAlignment="Center">
                                 <WrapPanel HorizontalAlignment="Center">
-                                    <TextBlock Foreground="Red" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">
-              密码
-     <LineBreak/>
-   password
-                                    </TextBlock>
+                                    <TextBlock Foreground="{StaticResource TextPrimaryBrush}" FontSize="20" Block.TextAlignment="Center" VerticalAlignment="Center">Password</TextBlock>
                                     <TextBox Margin="10 0" Width="200" Name="pas" VerticalContentAlignment="Center" FontSize="20"/>
                                 </WrapPanel>
                                 <WrapPanel HorizontalAlignment="Center" Margin="40">
-                                    <Button Width="100" Height="60" Margin="0 0 10 0"  Background="#FF08F2F7" Click="Button_Click">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20">
-    取消
-     <LineBreak/>
-   cancel
-                                        </TextBlock>
+                                    <Button Width="100" Height="60" Margin="0 0 10 0"  Background="{StaticResource ActionBackgroundBrush}" Click="Button_Click">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20">Cancel</TextBlock>
                                     </Button>
-                                    <Button Width="100" Height="60" Margin="70 0 10 0"  Background="#FF08F2F7" Click="Button_Click_1">
-                                        <TextBlock  Foreground="Red" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20">
- 确定
-  <LineBreak/>
-confirm
-                                        </TextBlock>
+                                    <Button Width="100" Height="60" Margin="70 0 10 0"  Background="{StaticResource ActionBackgroundBrush}" Click="Button_Click_1">
+                                        <TextBlock  Foreground="{StaticResource TextPrimaryBrush}" Block.TextAlignment="Center" Tag="0" VerticalAlignment="Center" FontSize="20">Confirm</TextBlock>
                                     </Button>
                                 </WrapPanel>
                             </StackPanel>
@@ -1063,28 +710,22 @@ confirm
             </Border>
 
             <WrapPanel Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10 0">
-                <Border Width="250" BorderBrush="White" Background="#FF0CD9F3" Height="70" Block.TextAlignment="Center" BorderThickness="3" Name="show" Margin="20 0" MouseDown="show_MouseDown">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="White" FontSize="25">
-                                            JAKA操控
-                                            <LineBreak/>
-                                           JAKA Control
-                    </TextBlock>
+                <Border Style="{StaticResource InteractiveBorderStyle}" Width="250" BorderBrush="{StaticResource StrokeBrush}" Background="{StaticResource SectionBackgroundBrush}" Height="70" Block.TextAlignment="Center" BorderThickness="3" Name="show" Margin="20 0" MouseDown="show_MouseDown">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="{StaticResource TextPrimaryBrush}" FontSize="25">JAKA Control</TextBlock>
                 </Border>
-                <Border Width="230" BorderBrush="White" Background="#FF0CD9F3" Height="70" BorderThickness="3" Block.TextAlignment="Center" Name="control1"  MouseDown="control1_MouseDown">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="White" FontSize="25">
-                                           机器操控
-                                            <LineBreak/>
-                                          Machine control
-                    </TextBlock>
+                <Border Style="{StaticResource InteractiveBorderStyle}" Width="230" BorderBrush="{StaticResource StrokeBrush}" Background="{StaticResource SectionBackgroundBrush}" Height="70" BorderThickness="3" Block.TextAlignment="Center" Name="control1"  MouseDown="control1_MouseDown">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="{StaticResource TextPrimaryBrush}" FontSize="25">Machine Control</TextBlock>
                 </Border>
-                <Border Width="230" BorderBrush="White" Background="#FF0CD9F3" Height="70" BorderThickness="3" Block.TextAlignment="Center" Name="control2" Margin="20 0" MouseDown="control2_MouseDown">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="White" FontSize="25">
-                                           机器状态
-                                            <LineBreak/>
-                                          Type control
-                    </TextBlock>
+                <Border Style="{StaticResource InteractiveBorderStyle}" Width="230" BorderBrush="{StaticResource StrokeBrush}" Background="{StaticResource SectionBackgroundBrush}" Height="70" BorderThickness="3" Block.TextAlignment="Center" Name="control2" Margin="20 0" MouseDown="control2_MouseDown">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="{StaticResource TextPrimaryBrush}" FontSize="25">Machine Status</TextBlock>
                 </Border>
             </WrapPanel>
         </Grid>
     </Grid>
 </Window>
+
+
+
+
+
+

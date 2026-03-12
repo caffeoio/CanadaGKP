@@ -16,22 +16,102 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
 
 namespace CanadaGKP
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static readonly SolidColorBrush ControlInactiveBrush = CreateFrozenBrush(33, 64, 103);
+        private static readonly SolidColorBrush ControlActiveBrush = CreateFrozenBrush(46, 127, 198);
+        private static readonly SolidColorBrush StatusOnBrush = CreateFrozenBrush(46, 170, 89);
+
         public MainWindow()
         {
             InitializeComponent();
+            ConfigureToolTips();
         }
+
+        private static SolidColorBrush CreateFrozenBrush(byte red, byte green, byte blue)
+        {
+            SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(red, green, blue));
+            brush.Freeze();
+            return brush;
+        }
+
+        private void ConfigureToolTips()
+        {
+            foreach (FieldInfo field in GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+            {
+                if (field.FieldType != typeof(TextBlock))
+                {
+                    continue;
+                }
+
+                TextBlock textBlock = field.GetValue(this) as TextBlock;
+                if (textBlock == null || string.IsNullOrWhiteSpace(textBlock.Name))
+                {
+                    continue;
+                }
+
+                if (!textBlock.Name.EndsWith("_btn", StringComparison.OrdinalIgnoreCase)
+                    && !textBlock.Name.StartsWith("L_", StringComparison.OrdinalIgnoreCase)
+                    && !textBlock.Name.StartsWith("R_", StringComparison.OrdinalIgnoreCase)
+                    && !textBlock.Name.EndsWith("_T", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                string actionText = NormalizeActionText(textBlock.Text);
+                textBlock.ToolTip = $"Action: {actionText}. Click to send this command.";
+                textBlock.Cursor = Cursors.Hand;
+            }
+
+            SetElementToolTip(exit, "Double-click to close the application.");
+            SetElementToolTip(exit1, "Return to the machine status panel.");
+            SetElementToolTip(show, "Open the JAKA robot control panel.");
+            SetElementToolTip(control1, "Open machine command controls.");
+            SetElementToolTip(control2, "Open machine status monitoring.");
+            SetElementToolTip(Reload_L, "Refresh left robot status.");
+            SetElementToolTip(Reload_R, "Refresh right robot status.");
+            SetElementToolTip(FY, "Switch between machine pages.");
+        }
+
+        private static string NormalizeActionText(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return "Command";
+            }
+
+            string[] parts = text
+                .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(part => part.Trim())
+                .Where(part => !string.IsNullOrWhiteSpace(part))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+
+            return parts.Length == 0 ? "Command" : parts[0];
+        }
+
+        private static void SetElementToolTip(FrameworkElement element, string tooltip)
+        {
+            if (element == null)
+            {
+                return;
+            }
+
+            element.ToolTip = tooltip;
+            element.Cursor = Cursors.Hand;
+        }
+
         public static string IPorPortUrl = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"\IPorPortMessageClient.txt";
         /// <summary>
-        /// 创建客户端
+        /// Create a socket client.
         /// </summary>
         Socket client;
         public bool IsMake = true;
@@ -40,15 +120,15 @@ namespace CanadaGKP
         {
             try
             {
-                ///创建客户端
+                /// Create the client.
                 client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-                ///IP地址
+                /// IP address
                 IPAddress ip = IPAddress.Parse(IPorPortMessageClient.Instance.CoffeeIP);
-                ///端口号
+                /// Port
                 IPEndPoint endPoint = new IPEndPoint(ip, int.Parse(IPorPortMessageClient.Instance.CoffeePort));
-                ///建立与服务器的远程连接
+                /// Establish a remote connection with the server
                 client.Connect(endPoint);
-                ///线程问题
+                /// Start receive thread
                 Thread thread = new Thread(ReciveMsg);
                 //thread.IsBackground = true;
                 thread.Start(client);
@@ -106,16 +186,16 @@ namespace CanadaGKP
         {
             try
             {
-                LTypeKJ_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LTypeBJ_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LOpenBTDY_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LCloseBTDY_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LOpenSSN_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LCloseSSN_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LOpenYXCX_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LCloseTZCX_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LContinueZTCX_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LCloseJXCX_L.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LTypeKJ_L.Background = ControlInactiveBrush;
+                LTypeBJ_L.Background = ControlInactiveBrush;
+                LOpenBTDY_L.Background = ControlInactiveBrush;
+                LCloseBTDY_L.Background = ControlInactiveBrush;
+                LOpenSSN_L.Background = ControlInactiveBrush;
+                LCloseSSN_L.Background = ControlInactiveBrush;
+                LOpenYXCX_L.Background = ControlInactiveBrush;
+                LCloseTZCX_L.Background = ControlInactiveBrush;
+                LContinueZTCX_L.Background = ControlInactiveBrush;
+                LCloseJXCX_L.Background = ControlInactiveBrush;
                 L_SD.Tag = "0";
                 L_BJ.Tag = "0";
                 L_BTSD.Tag = "0";
@@ -128,52 +208,52 @@ namespace CanadaGKP
                 L_JXCX.Tag = "0";
                 if (!robotMsg.Robot_YKJ_L && !robotMsg.Robot_BJ_L && !robotMsg.Robot_YX_L && !robotMsg.Robot_SN_L && !robotMsg.Robot_ZT_L && !robotMsg.Robot_SD_L && !robotMsg.Robot_TZ_L)
                 {
-                    LTypeKJ_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LTypeKJ_L.Background = ControlActiveBrush;
                     L_SD.Tag = "1";
                 }
                 else if (robotMsg.Robot_YKJ_L)
                 {
-                    LOpenBTDY_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LOpenBTDY_L.Background = ControlActiveBrush;
                     L_BTSD.Tag = "1";
                 }
                 else if (robotMsg.Robot_SD_L)
                 {
-                    LCloseBTDY_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LOpenSSN_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseBTDY_L.Background = ControlActiveBrush;
+                    LOpenSSN_L.Background = ControlActiveBrush;
                     L_BTXD.Tag = "1";
                     L_SSN.Tag = "1";
                 }
                 else if (robotMsg.Robot_SN_L)
                 {
-                    LOpenYXCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LCloseSSN_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LOpenYXCX_L.Background = ControlActiveBrush;
+                    LCloseSSN_L.Background = ControlActiveBrush;
                     L_XSN.Tag = "1";
                     L_YXCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_YX_L)
                 {
-                    LCloseTZCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LContinueZTCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseTZCX_L.Background = ControlActiveBrush;
+                    LContinueZTCX_L.Background = ControlActiveBrush;
                     L_ZTCX.Tag = "1";
                     L_TZCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_TZ_L)
                 {
-                    LOpenYXCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LCloseSSN_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LOpenYXCX_L.Background = ControlActiveBrush;
+                    LCloseSSN_L.Background = ControlActiveBrush;
                     L_XSN.Tag = "1";
                     L_YXCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_ZT_L)
                 {
-                    LCloseTZCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LCloseJXCX_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseTZCX_L.Background = ControlActiveBrush;
+                    LCloseJXCX_L.Background = ControlActiveBrush;
                     L_JXCX.Tag = "1";
                     L_TZCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_BJ_L)
                 {
-                    LTypeBJ_L.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LTypeBJ_L.Background = ControlActiveBrush;
                     L_BJ.Tag = "1";
                 }
             }
@@ -186,16 +266,16 @@ namespace CanadaGKP
         {
             try
             {
-                LTypeKJ_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LTypeBJ_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LOpenBTDY_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LCloseBTDY_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LOpenSSN_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LCloseSSN_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LOpenYXCX_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LCloseTZCX_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LContinueZTCX_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                LCloseJXCX_R.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                LTypeKJ_R.Background = ControlInactiveBrush;
+                LTypeBJ_R.Background = ControlInactiveBrush;
+                LOpenBTDY_R.Background = ControlInactiveBrush;
+                LCloseBTDY_R.Background = ControlInactiveBrush;
+                LOpenSSN_R.Background = ControlInactiveBrush;
+                LCloseSSN_R.Background = ControlInactiveBrush;
+                LOpenYXCX_R.Background = ControlInactiveBrush;
+                LCloseTZCX_R.Background = ControlInactiveBrush;
+                LContinueZTCX_R.Background = ControlInactiveBrush;
+                LCloseJXCX_R.Background = ControlInactiveBrush;
                 R_SD.Tag = "0";
                 R_BJ.Tag = "0";
                 R_BTSD.Tag = "0";
@@ -208,52 +288,52 @@ namespace CanadaGKP
                 R_JXCX.Tag = "0";
                 if (!robotMsg.Robot_YKJ_R && !robotMsg.Robot_BJ_R && !robotMsg.Robot_YX_R && !robotMsg.Robot_SN_R && !robotMsg.Robot_ZT_R && !robotMsg.Robot_SD_R && !robotMsg.Robot_TZ_R)
                 {
-                    LTypeKJ_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LTypeKJ_R.Background = ControlActiveBrush;
                     R_SD.Tag = "1";
                 }
                 else if (robotMsg.Robot_YKJ_R)
                 {
-                    LOpenBTDY_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LOpenBTDY_R.Background = ControlActiveBrush;
                     R_BTSD.Tag = "1";
                 }
                 else if (robotMsg.Robot_SD_R)
                 {
-                    LCloseBTDY_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LOpenSSN_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseBTDY_R.Background = ControlActiveBrush;
+                    LOpenSSN_R.Background = ControlActiveBrush;
                     R_BTXD.Tag = "1";
                     R_SSN.Tag = "1";
                 }
                 else if (robotMsg.Robot_SN_R)
                 {
-                    LOpenYXCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LCloseSSN_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LOpenYXCX_R.Background = ControlActiveBrush;
+                    LCloseSSN_R.Background = ControlActiveBrush;
                     R_XSN.Tag = "1";
                     R_YXCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_YX_R)
                 {
-                    LCloseTZCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LContinueZTCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseTZCX_R.Background = ControlActiveBrush;
+                    LContinueZTCX_R.Background = ControlActiveBrush;
                     R_ZTCX.Tag = "1";
                     R_TZCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_TZ_R)
                 {
-                    LOpenYXCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LCloseSSN_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LOpenYXCX_R.Background = ControlActiveBrush;
+                    LCloseSSN_R.Background = ControlActiveBrush;
                     R_XSN.Tag = "1";
                     R_YXCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_ZT_R)
                 {
-                    LCloseTZCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
-                    LCloseJXCX_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LCloseTZCX_R.Background = ControlActiveBrush;
+                    LCloseJXCX_R.Background = ControlActiveBrush;
                     R_JXCX.Tag = "1";
                     R_TZCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_BJ_R)
                 {
-                    LTypeBJ_R.Background = new SolidColorBrush(Color.FromRgb(8, 242, 247));
+                    LTypeBJ_R.Background = ControlActiveBrush;
                     R_BJ.Tag = "1";
                 }
             }
@@ -264,9 +344,9 @@ namespace CanadaGKP
         }
 
         /// <summary>
-        /// 客户端接收到服务器发送的消息
+        /// Handle messages sent by the server to the client
         /// </summary>
-        /// <param name="o">客户端</param>
+        /// <param name="o">Client socket</param>
         void ReciveMsg(object o)
         {
             Socket client = o as Socket;
@@ -274,9 +354,9 @@ namespace CanadaGKP
             {
                 try
                 {
-                    ///定义客户端接收到的信息大小
+                    /// Buffer for incoming data
                     byte[] arrList = new byte[1024 * 1024];
-                    ///接收到的信息大小(所占字节数)
+                    /// Received message length (bytes)
                     int length = client.Receive(arrList);
                     string msg = Encoding.UTF8.GetString(arrList, 0, length);
                     var ClientList = JsonConvert.DeserializeObject<ClientList>(msg);
@@ -309,30 +389,30 @@ namespace CanadaGKP
                 }
                 catch (Exception)
                 {
-                    ///关闭客户端
+                    /// Close the client
                     client.Close();
                 }
 
             }
         }
         /// <summary>
-        /// 给按钮变颜色
+        /// Update button indicator state
         /// </summary>
-        /// <param name="btn">要变颜色得按钮</param>
-        /// <param name="type">1，正常 2，接通变1 3，不缺料 4，缺料</param>
-        /// <param name="img">要变颜色得按钮</param>
+        /// <param name="btn">Target button text block</param>
+        /// <param name="type">0 = off, 1 = on</param>
+        /// <param name="img">Indicator image</param>
         public void BtnShow(TextBlock btn, double type, Image img)
         {
             try
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate
                 {
-                    if (type == 0)//正常状态do
+                    if (type == 0)// OFF state
                     {
                         btn.Tag = 0;
                         img.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
                     }
-                    else if (type == 1)//接通变1do
+                    else if (type == 1)// ON state
                     {
                         btn.Tag = 1;
                         img.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png"));
@@ -429,7 +509,7 @@ namespace CanadaGKP
             }
         }
         /// <summary>
-        /// IO点查询
+        /// IO point query
         /// </summary>
         public void DISelect(DigitalMsgBol msgBol)
         {
@@ -437,33 +517,33 @@ namespace CanadaGKP
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate
                 {
-                    AQGS.Background = !msgBol.AQGS_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    CCSDW.Background = !msgBol.CCSDW_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    CCXDW.Background = !msgBol.CCXDW_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    DKLBQFK1.Background = !msgBol.DKLBQ1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    DKLBQFK2.Background = !msgBol.DKLBQ2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    DKLBQFK3.Background = !msgBol.DKLBQ3_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    CCJC.Background = !msgBol.CCJC_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    DCJC1.Background = !msgBol.DCJC1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    DCJC2.Background = !msgBol.DCJC2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    DCJC3.Background = !msgBol.DCJC3_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    GJC1.Background = !msgBol.QGJCDK1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    GJC2.Background = !msgBol.QGJCDK2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    GJC3.Background = !msgBol.QGJCDK3_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    BJC1.Background = !msgBol.QBJCSK1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    BJC2.Background = !msgBol.QBJCSK2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    JBCGJC.Background = !msgBol.JBCGJC_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    QKLJC.Background = !msgBol.QKLJLJC_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    NNZYYBJ.Background = !msgBol.BXJC1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    NNZYQLJC.Background = !msgBol.BXJC2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    NNJC.Background = !msgBol.QKLJLJC_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    YMNJC.Background = !msgBol.BXJC3_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    YMNYBJ.Background = !msgBol.BXJC4_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    SJC.Background = !msgBol.WATER_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    GTJC1.Background = !msgBol.GTJC1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    GTJC2.Background = !msgBol.GTJC2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    CTJC1.Background = !msgBol.CTJC1_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
-                    CTJC2.Background = !msgBol.CTJC2_Bol ? new SolidColorBrush(Color.FromRgb(255, 255, 255)) : new SolidColorBrush(Color.FromRgb(7, 247, 43));
+                    AQGS.Background = !msgBol.AQGS_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    CCSDW.Background = !msgBol.CCSDW_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    CCXDW.Background = !msgBol.CCXDW_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    DKLBQFK1.Background = !msgBol.DKLBQ1_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    DKLBQFK2.Background = !msgBol.DKLBQ2_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    DKLBQFK3.Background = !msgBol.DKLBQ3_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    CCJC.Background = !msgBol.CCJC_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    DCJC1.Background = !msgBol.DCJC1_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    DCJC2.Background = !msgBol.DCJC2_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    DCJC3.Background = !msgBol.DCJC3_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    GJC1.Background = !msgBol.QGJCDK1_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    GJC2.Background = !msgBol.QGJCDK2_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    GJC3.Background = !msgBol.QGJCDK3_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    BJC1.Background = !msgBol.QBJCSK1_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    BJC2.Background = !msgBol.QBJCSK2_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    JBCGJC.Background = !msgBol.JBCGJC_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    QKLJC.Background = !msgBol.QKLJLJC_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    NNZYYBJ.Background = !msgBol.BXJC1_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    NNZYQLJC.Background = !msgBol.BXJC2_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    NNJC.Background = !msgBol.QKLJLJC_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    YMNJC.Background = !msgBol.BXJC3_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    YMNYBJ.Background = !msgBol.BXJC4_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    SJC.Background = !msgBol.WATER_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    GTJC1.Background = !msgBol.GTJC1_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    GTJC2.Background = !msgBol.GTJC2_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    CTJC1.Background = !msgBol.CTJC1_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    CTJC2.Background = !msgBol.CTJC2_Bol ? ControlInactiveBrush : StatusOnBrush;
                     ChaiC_Txt.Text = msgBol.ChaiTIint.ToString();
                     MOC_Txt.Text = msgBol.MoCIint.ToString();
                     BaiST_Txt.Text = msgBol.BaistIint.ToString();
@@ -511,19 +591,19 @@ namespace CanadaGKP
         {
             try
             {
-                ///创建客户端
+                /// Create the client.
                 client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-                ///IP地址
+                /// IP address
                 IPAddress ip = IPAddress.Parse(IPorPortMessageClient.Instance.CoffeeIP);
-                ///端口号
+                /// Port
                 IPEndPoint endPoint = new IPEndPoint(ip, 5555);
-                ///建立与服务器的远程连接
+                /// Establish a remote connection with the server
                 client.Connect(endPoint);
                 ClientList clientList = new ClientList();
                 clientList.MsgBol = DigitalMsgBol.Instance;
                 clientList.code = 99;
                 client.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(clientList)));
-                ///线程问题
+                /// Start receive thread
                 Thread thread = new Thread(ReciveMsg);
                 thread.IsBackground = true;
                 thread.Start(client);
@@ -901,7 +981,7 @@ namespace CanadaGKP
                             if (thisProc.ProcessName == "CanadaCoffee")
                             {
                                 if (!thisProc.CloseMainWindow())
-                                    thisProc.Kill(); //当发送关闭窗口命令无效时强行结束进程     
+                                    thisProc.Kill(); // Force kill when the close command fails     
                             }
                         }
                         this.Dispatcher.BeginInvoke(new Action(delegate
@@ -929,7 +1009,7 @@ namespace CanadaGKP
             }
         }
         /// <summary>
-        ///   状态  0 关状态  1 开状态 2 已开机 3 上电 4 下电 5 已使能 6 下使能 7 已运行 8 继续运行 9 已报警 10 已暂停  11已停止 ,12 机械臂状态查询
+        /// Status: 0 off, 1 on, 2 powered up, 3 power on, 4 power off, 5 enabled, 6 disabled, 7 running, 8 resume, 9 alarm, 10 paused, 11 stopped, 12 robot status query
         /// </summary>
         /// <param name="robotName"></param>
         /// <param name="type"> </param>
@@ -1459,3 +1539,5 @@ namespace CanadaGKP
         }
     }
 }
+
+
