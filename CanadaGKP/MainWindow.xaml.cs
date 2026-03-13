@@ -670,12 +670,32 @@ namespace CanadaGKP
                 else
                 {
                     var porPortInfo = JsonConvert.DeserializeObject<IPorPortMessageClient>(File.ReadAllText(IPorPortUrl));
-                    IPorPortMessageClient.Instance.CoffeeIP = porPortInfo.CoffeeIP;
-                    IPorPortMessageClient.Instance.CoffeePort = porPortInfo.CoffeePort;
+                    if (porPortInfo != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(porPortInfo.CoffeeIP))
+                        {
+                            IPorPortMessageClient.Instance.CoffeeIP = porPortInfo.CoffeeIP;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(porPortInfo.CoffeePort))
+                        {
+                            IPorPortMessageClient.Instance.CoffeePort = porPortInfo.CoffeePort;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(porPortInfo.CoffeeIPL))
+                        {
+                            IPorPortMessageClient.Instance.CoffeeIPL = porPortInfo.CoffeeIPL;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(porPortInfo.CoffeeIPR))
+                        {
+                            IPorPortMessageClient.Instance.CoffeeIPR = porPortInfo.CoffeeIPR;
+                        }
+                    }
                 }
 
 
-                //  Client();
+                Task.Run(() => Client());
 
             }
             catch (Exception)
@@ -692,7 +712,8 @@ namespace CanadaGKP
                 /// IP address
                 IPAddress ip = IPAddress.Parse(IPorPortMessageClient.Instance.CoffeeIP);
                 /// Port
-                IPEndPoint endPoint = new IPEndPoint(ip, 5555);
+                int port = int.TryParse(IPorPortMessageClient.Instance.CoffeePort, out int configuredPort) ? configuredPort : 5555;
+                IPEndPoint endPoint = new IPEndPoint(ip, port);
                 /// Establish a remote connection with the server
                 client.Connect(endPoint);
                 ClientList clientList = new ClientList();
@@ -706,6 +727,7 @@ namespace CanadaGKP
             }
             catch (Exception)
             {
+                Thread.Sleep(100);
                 Client();
             }
         }
