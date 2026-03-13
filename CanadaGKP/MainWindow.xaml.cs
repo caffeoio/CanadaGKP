@@ -26,13 +26,15 @@ namespace CanadaGKP
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly SolidColorBrush ControlInactiveBrush = CreateFrozenBrush(33, 64, 103);
-        private static readonly SolidColorBrush ControlActiveBrush = CreateFrozenBrush(46, 127, 198);
+        private static readonly SolidColorBrush StatusOffBrush = CreateFrozenBrush(166, 58, 73);
         private static readonly SolidColorBrush StatusOnBrush = CreateFrozenBrush(46, 170, 89);
+        private static readonly ImageSource StatusOffIndicatorSource = CreateStatusIndicatorImage(166, 58, 73);
+        private static readonly ImageSource StatusOnIndicatorSource = CreateStatusIndicatorImage(46, 170, 89);
 
         public MainWindow()
         {
             InitializeComponent();
+            InitializeStatusIndicators();
             ConfigureToolTips();
         }
 
@@ -41,6 +43,107 @@ namespace CanadaGKP
             SolidColorBrush brush = new SolidColorBrush(Color.FromRgb(red, green, blue));
             brush.Freeze();
             return brush;
+        }
+
+        // Build red/green status dots in code so the theme does not depend on extra image assets.
+        private static ImageSource CreateStatusIndicatorImage(byte red, byte green, byte blue)
+        {
+            Color baseColor = Color.FromRgb(red, green, blue);
+            Color highlightColor = BlendColor(baseColor, Colors.White, 0.45);
+            Color shadowColor = BlendColor(baseColor, Colors.Black, 0.35);
+            Color outlineColor = BlendColor(baseColor, Colors.Black, 0.20);
+
+            RadialGradientBrush fillBrush = new RadialGradientBrush();
+            fillBrush.Center = new Point(0.35, 0.35);
+            fillBrush.GradientOrigin = new Point(0.35, 0.35);
+            fillBrush.RadiusX = 0.78;
+            fillBrush.RadiusY = 0.78;
+            fillBrush.GradientStops.Add(new GradientStop(highlightColor, 0));
+            fillBrush.GradientStops.Add(new GradientStop(baseColor, 0.65));
+            fillBrush.GradientStops.Add(new GradientStop(shadowColor, 1));
+            fillBrush.Freeze();
+
+            SolidColorBrush outlineBrush = new SolidColorBrush(outlineColor);
+            outlineBrush.Freeze();
+
+            SolidColorBrush glossBrush = new SolidColorBrush(Color.FromArgb(96, 255, 255, 255));
+            glossBrush.Freeze();
+
+            EllipseGeometry mainCircle = new EllipseGeometry(new Point(12, 12), 8.5, 8.5);
+            mainCircle.Freeze();
+
+            EllipseGeometry glossCircle = new EllipseGeometry(new Point(9, 8), 3.5, 2.5);
+            glossCircle.Freeze();
+
+            Pen outlinePen = new Pen(outlineBrush, 1.2);
+            outlinePen.Freeze();
+
+            DrawingGroup group = new DrawingGroup();
+            group.Children.Add(new GeometryDrawing(fillBrush, outlinePen, mainCircle));
+            group.Children.Add(new GeometryDrawing(glossBrush, null, glossCircle));
+            group.Freeze();
+
+            DrawingImage image = new DrawingImage(group);
+            image.Freeze();
+            return image;
+        }
+
+        private static Color BlendColor(Color baseColor, Color blendColor, double amount)
+        {
+            byte BlendChannel(byte from, byte to)
+            {
+                return (byte)Math.Round(from + ((to - from) * amount));
+            }
+
+            return Color.FromRgb(
+                BlendChannel(baseColor.R, blendColor.R),
+                BlendChannel(baseColor.G, blendColor.G),
+                BlendChannel(baseColor.B, blendColor.B));
+        }
+
+        private void InitializeStatusIndicators()
+        {
+            foreach (FieldInfo field in GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+            {
+                if (field.FieldType != typeof(Image))
+                {
+                    continue;
+                }
+
+                Image image = field.GetValue(this) as Image;
+                if (image == null || string.IsNullOrWhiteSpace(image.Name))
+                {
+                    continue;
+                }
+
+                if (!image.Name.StartsWith("robot_", StringComparison.OrdinalIgnoreCase)
+                    && !image.Name.EndsWith("_img", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                SetStatusIndicator(image, false);
+            }
+        }
+
+        private static void SetStatusBackground(Border border, bool isActive)
+        {
+            if (border == null)
+            {
+                return;
+            }
+
+            border.Background = isActive ? StatusOnBrush : StatusOffBrush;
+        }
+
+        private static void SetStatusIndicator(Image image, bool isActive)
+        {
+            if (image == null)
+            {
+                return;
+            }
+
+            image.Source = isActive ? StatusOnIndicatorSource : StatusOffIndicatorSource;
         }
 
         private void ConfigureToolTips()
@@ -146,13 +249,13 @@ namespace CanadaGKP
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate
                 {
-                    robot_kj_L.Source = robotMsg.Robot_YKJ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_sd_L.Source = robotMsg.Robot_SD_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_sn_L.Source = robotMsg.Robot_SN_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_yx_L.Source = robotMsg.Robot_YX_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_zt_L.Source = robotMsg.Robot_ZT_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_bj_L.Source = robotMsg.Robot_BJ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_tz_L.Source = robotMsg.Robot_TZ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png")); ;
+                    SetStatusIndicator(robot_kj_L, robotMsg.Robot_YKJ_L);
+                    SetStatusIndicator(robot_sd_L, robotMsg.Robot_SD_L);
+                    SetStatusIndicator(robot_sn_L, robotMsg.Robot_SN_L);
+                    SetStatusIndicator(robot_yx_L, robotMsg.Robot_YX_L);
+                    SetStatusIndicator(robot_zt_L, robotMsg.Robot_ZT_L);
+                    SetStatusIndicator(robot_bj_L, robotMsg.Robot_BJ_L);
+                    SetStatusIndicator(robot_tz_L, robotMsg.Robot_TZ_L);
                     RobotYN_L(robotMsg);
                 }));
             }
@@ -167,13 +270,13 @@ namespace CanadaGKP
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate
                 {
-                    robot_kj_R.Source = robotMsg.Robot_YKJ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_sd_R.Source = robotMsg.Robot_SD_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_sn_R.Source = robotMsg.Robot_SN_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_yx_R.Source = robotMsg.Robot_YX_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_zt_R.Source = robotMsg.Robot_ZT_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_bj_R.Source = robotMsg.Robot_BJ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    robot_tz_R.Source = robotMsg.Robot_TZ_L ? new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png")) : new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png")); ;
+                    SetStatusIndicator(robot_kj_R, robotMsg.Robot_YKJ_R);
+                    SetStatusIndicator(robot_sd_R, robotMsg.Robot_SD_R);
+                    SetStatusIndicator(robot_sn_R, robotMsg.Robot_SN_R);
+                    SetStatusIndicator(robot_yx_R, robotMsg.Robot_YX_R);
+                    SetStatusIndicator(robot_zt_R, robotMsg.Robot_ZT_R);
+                    SetStatusIndicator(robot_bj_R, robotMsg.Robot_BJ_R);
+                    SetStatusIndicator(robot_tz_R, robotMsg.Robot_TZ_R);
                     RobotYN_R(robotMsg);
                 }));
             }
@@ -186,16 +289,16 @@ namespace CanadaGKP
         {
             try
             {
-                LTypeKJ_L.Background = ControlInactiveBrush;
-                LTypeBJ_L.Background = ControlInactiveBrush;
-                LOpenBTDY_L.Background = ControlInactiveBrush;
-                LCloseBTDY_L.Background = ControlInactiveBrush;
-                LOpenSSN_L.Background = ControlInactiveBrush;
-                LCloseSSN_L.Background = ControlInactiveBrush;
-                LOpenYXCX_L.Background = ControlInactiveBrush;
-                LCloseTZCX_L.Background = ControlInactiveBrush;
-                LContinueZTCX_L.Background = ControlInactiveBrush;
-                LCloseJXCX_L.Background = ControlInactiveBrush;
+                SetStatusBackground(LTypeKJ_L, false);
+                SetStatusBackground(LTypeBJ_L, false);
+                SetStatusBackground(LOpenBTDY_L, false);
+                SetStatusBackground(LCloseBTDY_L, false);
+                SetStatusBackground(LOpenSSN_L, false);
+                SetStatusBackground(LCloseSSN_L, false);
+                SetStatusBackground(LOpenYXCX_L, false);
+                SetStatusBackground(LCloseTZCX_L, false);
+                SetStatusBackground(LContinueZTCX_L, false);
+                SetStatusBackground(LCloseJXCX_L, false);
                 L_SD.Tag = "0";
                 L_BJ.Tag = "0";
                 L_BTSD.Tag = "0";
@@ -208,52 +311,52 @@ namespace CanadaGKP
                 L_JXCX.Tag = "0";
                 if (!robotMsg.Robot_YKJ_L && !robotMsg.Robot_BJ_L && !robotMsg.Robot_YX_L && !robotMsg.Robot_SN_L && !robotMsg.Robot_ZT_L && !robotMsg.Robot_SD_L && !robotMsg.Robot_TZ_L)
                 {
-                    LTypeKJ_L.Background = ControlActiveBrush;
+                    SetStatusBackground(LTypeKJ_L, true);
                     L_SD.Tag = "1";
                 }
                 else if (robotMsg.Robot_YKJ_L)
                 {
-                    LOpenBTDY_L.Background = ControlActiveBrush;
+                    SetStatusBackground(LOpenBTDY_L, true);
                     L_BTSD.Tag = "1";
                 }
                 else if (robotMsg.Robot_SD_L)
                 {
-                    LCloseBTDY_L.Background = ControlActiveBrush;
-                    LOpenSSN_L.Background = ControlActiveBrush;
+                    SetStatusBackground(LCloseBTDY_L, true);
+                    SetStatusBackground(LOpenSSN_L, true);
                     L_BTXD.Tag = "1";
                     L_SSN.Tag = "1";
                 }
                 else if (robotMsg.Robot_SN_L)
                 {
-                    LOpenYXCX_L.Background = ControlActiveBrush;
-                    LCloseSSN_L.Background = ControlActiveBrush;
+                    SetStatusBackground(LOpenYXCX_L, true);
+                    SetStatusBackground(LCloseSSN_L, true);
                     L_XSN.Tag = "1";
                     L_YXCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_YX_L)
                 {
-                    LCloseTZCX_L.Background = ControlActiveBrush;
-                    LContinueZTCX_L.Background = ControlActiveBrush;
+                    SetStatusBackground(LCloseTZCX_L, true);
+                    SetStatusBackground(LContinueZTCX_L, true);
                     L_ZTCX.Tag = "1";
                     L_TZCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_TZ_L)
                 {
-                    LOpenYXCX_L.Background = ControlActiveBrush;
-                    LCloseSSN_L.Background = ControlActiveBrush;
+                    SetStatusBackground(LOpenYXCX_L, true);
+                    SetStatusBackground(LCloseSSN_L, true);
                     L_XSN.Tag = "1";
                     L_YXCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_ZT_L)
                 {
-                    LCloseTZCX_L.Background = ControlActiveBrush;
-                    LCloseJXCX_L.Background = ControlActiveBrush;
+                    SetStatusBackground(LCloseTZCX_L, true);
+                    SetStatusBackground(LCloseJXCX_L, true);
                     L_JXCX.Tag = "1";
                     L_TZCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_BJ_L)
                 {
-                    LTypeBJ_L.Background = ControlActiveBrush;
+                    SetStatusBackground(LTypeBJ_L, true);
                     L_BJ.Tag = "1";
                 }
             }
@@ -266,16 +369,16 @@ namespace CanadaGKP
         {
             try
             {
-                LTypeKJ_R.Background = ControlInactiveBrush;
-                LTypeBJ_R.Background = ControlInactiveBrush;
-                LOpenBTDY_R.Background = ControlInactiveBrush;
-                LCloseBTDY_R.Background = ControlInactiveBrush;
-                LOpenSSN_R.Background = ControlInactiveBrush;
-                LCloseSSN_R.Background = ControlInactiveBrush;
-                LOpenYXCX_R.Background = ControlInactiveBrush;
-                LCloseTZCX_R.Background = ControlInactiveBrush;
-                LContinueZTCX_R.Background = ControlInactiveBrush;
-                LCloseJXCX_R.Background = ControlInactiveBrush;
+                SetStatusBackground(LTypeKJ_R, false);
+                SetStatusBackground(LTypeBJ_R, false);
+                SetStatusBackground(LOpenBTDY_R, false);
+                SetStatusBackground(LCloseBTDY_R, false);
+                SetStatusBackground(LOpenSSN_R, false);
+                SetStatusBackground(LCloseSSN_R, false);
+                SetStatusBackground(LOpenYXCX_R, false);
+                SetStatusBackground(LCloseTZCX_R, false);
+                SetStatusBackground(LContinueZTCX_R, false);
+                SetStatusBackground(LCloseJXCX_R, false);
                 R_SD.Tag = "0";
                 R_BJ.Tag = "0";
                 R_BTSD.Tag = "0";
@@ -288,52 +391,52 @@ namespace CanadaGKP
                 R_JXCX.Tag = "0";
                 if (!robotMsg.Robot_YKJ_R && !robotMsg.Robot_BJ_R && !robotMsg.Robot_YX_R && !robotMsg.Robot_SN_R && !robotMsg.Robot_ZT_R && !robotMsg.Robot_SD_R && !robotMsg.Robot_TZ_R)
                 {
-                    LTypeKJ_R.Background = ControlActiveBrush;
+                    SetStatusBackground(LTypeKJ_R, true);
                     R_SD.Tag = "1";
                 }
                 else if (robotMsg.Robot_YKJ_R)
                 {
-                    LOpenBTDY_R.Background = ControlActiveBrush;
+                    SetStatusBackground(LOpenBTDY_R, true);
                     R_BTSD.Tag = "1";
                 }
                 else if (robotMsg.Robot_SD_R)
                 {
-                    LCloseBTDY_R.Background = ControlActiveBrush;
-                    LOpenSSN_R.Background = ControlActiveBrush;
+                    SetStatusBackground(LCloseBTDY_R, true);
+                    SetStatusBackground(LOpenSSN_R, true);
                     R_BTXD.Tag = "1";
                     R_SSN.Tag = "1";
                 }
                 else if (robotMsg.Robot_SN_R)
                 {
-                    LOpenYXCX_R.Background = ControlActiveBrush;
-                    LCloseSSN_R.Background = ControlActiveBrush;
+                    SetStatusBackground(LOpenYXCX_R, true);
+                    SetStatusBackground(LCloseSSN_R, true);
                     R_XSN.Tag = "1";
                     R_YXCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_YX_R)
                 {
-                    LCloseTZCX_R.Background = ControlActiveBrush;
-                    LContinueZTCX_R.Background = ControlActiveBrush;
+                    SetStatusBackground(LCloseTZCX_R, true);
+                    SetStatusBackground(LContinueZTCX_R, true);
                     R_ZTCX.Tag = "1";
                     R_TZCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_TZ_R)
                 {
-                    LOpenYXCX_R.Background = ControlActiveBrush;
-                    LCloseSSN_R.Background = ControlActiveBrush;
+                    SetStatusBackground(LOpenYXCX_R, true);
+                    SetStatusBackground(LCloseSSN_R, true);
                     R_XSN.Tag = "1";
                     R_YXCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_ZT_R)
                 {
-                    LCloseTZCX_R.Background = ControlActiveBrush;
-                    LCloseJXCX_R.Background = ControlActiveBrush;
+                    SetStatusBackground(LCloseTZCX_R, true);
+                    SetStatusBackground(LCloseJXCX_R, true);
                     R_JXCX.Tag = "1";
                     R_TZCX.Tag = "1";
                 }
                 else if (robotMsg.Robot_BJ_R)
                 {
-                    LTypeBJ_R.Background = ControlActiveBrush;
+                    SetStatusBackground(LTypeBJ_R, true);
                     R_BJ.Tag = "1";
                 }
             }
@@ -407,16 +510,9 @@ namespace CanadaGKP
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate
                 {
-                    if (type == 0)// OFF state
-                    {
-                        btn.Tag = 0;
-                        img.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"灰圆.png"));
-                    }
-                    else if (type == 1)// ON state
-                    {
-                        btn.Tag = 1;
-                        img.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"绿圆.png"));
-                    }
+                    bool isActive = type == 1;
+                    btn.Tag = isActive ? 1 : 0;
+                    SetStatusIndicator(img, isActive);
                 }));
             }
             catch (Exception)
@@ -517,33 +613,33 @@ namespace CanadaGKP
             {
                 this.Dispatcher.BeginInvoke(new Action(delegate
                 {
-                    AQGS.Background = !msgBol.AQGS_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    CCSDW.Background = !msgBol.CCSDW_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    CCXDW.Background = !msgBol.CCXDW_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    DKLBQFK1.Background = !msgBol.DKLBQ1_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    DKLBQFK2.Background = !msgBol.DKLBQ2_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    DKLBQFK3.Background = !msgBol.DKLBQ3_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    CCJC.Background = !msgBol.CCJC_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    DCJC1.Background = !msgBol.DCJC1_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    DCJC2.Background = !msgBol.DCJC2_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    DCJC3.Background = !msgBol.DCJC3_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    GJC1.Background = !msgBol.QGJCDK1_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    GJC2.Background = !msgBol.QGJCDK2_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    GJC3.Background = !msgBol.QGJCDK3_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    BJC1.Background = !msgBol.QBJCSK1_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    BJC2.Background = !msgBol.QBJCSK2_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    JBCGJC.Background = !msgBol.JBCGJC_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    QKLJC.Background = !msgBol.QKLJLJC_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    NNZYYBJ.Background = !msgBol.BXJC1_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    NNZYQLJC.Background = !msgBol.BXJC2_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    NNJC.Background = !msgBol.QKLJLJC_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    YMNJC.Background = !msgBol.BXJC3_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    YMNYBJ.Background = !msgBol.BXJC4_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    SJC.Background = !msgBol.WATER_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    GTJC1.Background = !msgBol.GTJC1_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    GTJC2.Background = !msgBol.GTJC2_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    CTJC1.Background = !msgBol.CTJC1_Bol ? ControlInactiveBrush : StatusOnBrush;
-                    CTJC2.Background = !msgBol.CTJC2_Bol ? ControlInactiveBrush : StatusOnBrush;
+                    SetStatusBackground(AQGS, msgBol.AQGS_Bol);
+                    SetStatusBackground(CCSDW, msgBol.CCSDW_Bol);
+                    SetStatusBackground(CCXDW, msgBol.CCXDW_Bol);
+                    SetStatusBackground(DKLBQFK1, msgBol.DKLBQ1_Bol);
+                    SetStatusBackground(DKLBQFK2, msgBol.DKLBQ2_Bol);
+                    SetStatusBackground(DKLBQFK3, msgBol.DKLBQ3_Bol);
+                    SetStatusBackground(CCJC, msgBol.CCJC_Bol);
+                    SetStatusBackground(DCJC1, msgBol.DCJC1_Bol);
+                    SetStatusBackground(DCJC2, msgBol.DCJC2_Bol);
+                    SetStatusBackground(DCJC3, msgBol.DCJC3_Bol);
+                    SetStatusBackground(GJC1, msgBol.QGJCDK1_Bol);
+                    SetStatusBackground(GJC2, msgBol.QGJCDK2_Bol);
+                    SetStatusBackground(GJC3, msgBol.QGJCDK3_Bol);
+                    SetStatusBackground(BJC1, msgBol.QBJCSK1_Bol);
+                    SetStatusBackground(BJC2, msgBol.QBJCSK2_Bol);
+                    SetStatusBackground(JBCGJC, msgBol.JBCGJC_Bol);
+                    SetStatusBackground(QKLJC, msgBol.QKLJLJC_Bol);
+                    SetStatusBackground(NNZYYBJ, msgBol.BXJC1_Bol);
+                    SetStatusBackground(NNZYQLJC, msgBol.BXJC2_Bol);
+                    SetStatusBackground(NNJC, msgBol.QKLJLJC_Bol);
+                    SetStatusBackground(YMNJC, msgBol.BXJC3_Bol);
+                    SetStatusBackground(YMNYBJ, msgBol.BXJC4_Bol);
+                    SetStatusBackground(SJC, msgBol.WATER_Bol);
+                    SetStatusBackground(GTJC1, msgBol.GTJC1_Bol);
+                    SetStatusBackground(GTJC2, msgBol.GTJC2_Bol);
+                    SetStatusBackground(CTJC1, msgBol.CTJC1_Bol);
+                    SetStatusBackground(CTJC2, msgBol.CTJC2_Bol);
                     ChaiC_Txt.Text = msgBol.ChaiTIint.ToString();
                     MOC_Txt.Text = msgBol.MoCIint.ToString();
                     BaiST_Txt.Text = msgBol.BaistIint.ToString();
